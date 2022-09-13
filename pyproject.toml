@@ -1,0 +1,24 @@
+[project]
+name = "popell_top100"
+description = "PopEll Top100 voting site"
+version = "0.1.0"
+authors = [
+    { name = "Jur Clerkx", email = "jur@kabisa.nl" }
+]
+
+[tool.black]
+line-length = 79
+include = '\.pyi?$'
+exclude = '''
+/(
+    \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | _build
+  | buck-out
+  | build
+  | dist
+)/
+'''
