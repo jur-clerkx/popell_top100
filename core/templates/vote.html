@@ -16,6 +16,15 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/nl.js"></script>
 
     <script>
+        function formatState(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            return $(
+                '<span><img src="' + state.image + '" width="25px"/>' + state.text + '</span>'
+            )//TODO: improve template styling and add selection template
+        }
+
         $(document).ready(function () {
             $('.js-example-basic-single').select2({
                 placeholder: 'Kies een nummer',
@@ -23,17 +32,15 @@
                 width: '100%',
                 "language": "nl",
                 ajax: {
-                    url: 'https://api.github.com/orgs/select2/repos',
+                    url: '{% url 'core:api-search' %}',
                     data: function (params) {
-                        var query = {
-                            search: params.term,
-                            type: 'public'
-                        }
-
-                        // Query parameters will be ?search=[term]&type=public
-                        return query;
+                        return {
+                            q: params.term,
+                        };
                     }
-                }
+                },
+                templateResult: formatState,
+                templateSelection: formatState,
             });
         });
     </script>
