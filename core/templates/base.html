@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Top 100{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+
+
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link href="{% static 'css/logo.css' %}" rel="stylesheet">
+    {% block imports %} {% endblock %}
+</head>
+<body>
+<div class="col-lg-10 mx-auto p-4 py-md-5">
+    <header class="pb-3 mb-4 border-bottom">
+        <div class="logo">
+            <span class="logo_stichting">STICHTING</span>
+            <span class="logo_popell">POPELL</span>
+        </div>
+    </header>
+    <div class="content">
+        {% block content %}<!-- default content text (typically empty) -->{% endblock %}
+    </div>
+</div>
+</body>
+</html>

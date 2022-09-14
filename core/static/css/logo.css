@@ -1,0 +1,37 @@
+.logo .logo_stichting {
+    color: #FFED2D;
+    font-size: 41px;
+    font-weight: bold;
+    font-family: monoton, fantasy;
+    text-shadow: 3px 3px 0 rgba(10, 189, 240, 0.298039), -3px -3px 0 rgba(254, 1, 1, 0.3);
+    display: block;
+}
+
+.logo .logo_popell {
+    font-size: 78px;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-family: monoton, fantasy;
+    text-shadow: 3px 3px 0 rgba(10, 189, 240, 0.298039), -3px -3px 0 rgba(254, 1, 1, 0.3);
+    display: block;
+}
+
+.logo {
+    color: #FFED2D;
+    line-height: 1em;
+    font-size: 60px;
+}
+
+@media (max-width: 576px) {
+    .logo {
+        font-size: 30px;
+    }
+
+    .logo .logo_popell {
+        font-size: 39px;
+    }
+
+    .logo .logo_stichting {
+        font-size: 20px;
+    }
+}

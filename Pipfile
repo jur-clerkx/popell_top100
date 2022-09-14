@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 django = "~=4.1"
+spotipy = "~=2.2"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
