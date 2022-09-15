@@ -5,9 +5,6 @@
 
 {% block imports %}
     <link href="{% static 'css/vote.css' %}" rel="stylesheet">
-    <script>
-        var csrftoken = '{{ csrf_token }}';
-    </script>
     {# Load jQuery #}
     <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
     {# Load Select2 #}
@@ -70,7 +67,7 @@
 {% block content %}
     <h2>Bachelorclub Top 100 stemformulier</h2>
     <br/>
-    <form id="voteform" action="/top100/thanks" method="post">
+    <form method="post">
         {% csrf_token %}
         <label for="name">Naam:</label>
         <input type="text" name="name" id="name" value="" placeholder="Pietje puk" required>
