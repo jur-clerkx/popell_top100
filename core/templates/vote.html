@@ -73,31 +73,27 @@
     <form id="voteform" action="/top100/thanks" method="post">
         {% csrf_token %}
         <label for="name">Naam:</label>
-        <input type="text" name="name" id="name" value="" placeholder="Pietje puk">
+        <input type="text" name="name" id="name" value="" placeholder="Pietje puk" required>
         <div class="my-4">
             <div class="my-4 song_input">
                 <label for="song_0">Nummer 1 (5 punten):</label>
-                <select class="select_song" name="song_0" id="song_0"></select>
+                <select class="select_song" name="song_0" id="song_0" required></select>
             </div>
             <div class="my-4 song_input">
                 <label for="song_0">Nummer 2 (4 punten):</label>
-                <select class="select_song" name="song_1" id="song_1"></select>
-                <input type="hidden" name="uri_1" id="song_1_uri">
+                <select class="select_song" name="song_1" id="song_1" required></select>
             </div>
             <div class="my-4 song_input">
                 <label for="song_0">Nummer 3 (3 punten):</label>
-                <select class="select_song" name="song_2" id="song_2"></select>
-                <input type="hidden" name="uri_2" id="song_2_uri">
+                <select class="select_song" name="song_2" id="song_2" required></select>
             </div>
             <div class="my-4 song_input">
                 <label for="song_0">Nummer 4 (2 punten):</label>
-                <select class="select_song" name="song_3" id="song_3"></select>
-                <input type="hidden" name="uri_3" id="song_3_uri">
+                <select class="select_song" name="song_3" id="song_3" required></select>
             </div>
             <div class="my-4 song_input">
                 <label for="song_0">Nummer 5 (1 punten):</label>
-                <select class="select_song" name="song_4" id="song_4"></select>
-                <input type="hidden" name="uri_4" id="song_4_uri">
+                <select class="select_song" name="song_4" id="song_4" required></select>
             </div>
         </div>
         <input type="submit" class="btn btn-primary">
