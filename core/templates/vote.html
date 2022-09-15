@@ -1,10 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Stemmen{% endblock %}
 
 {% block imports %}
-
-    {% load static %}
+    <link href="{% static 'css/vote.css' %}" rel="stylesheet">
     <script>
         var csrftoken = '{{ csrf_token }}';
     </script>
@@ -16,20 +16,35 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/i18n/nl.js"></script>
 
     <script>
-        function formatState(state) {
+        function formatStateResult(state) {
             if (!state.id) {
                 return state.text;
             }
             return $(
-                '<span><img src="' + state.image + '" width="25px"/>' + state.text + '</span>'
-            )//TODO: improve template styling and add selection template
+                '<img src="' + state.image + '" class="selection_result_image"/>' +
+                '<span class="selection_result_track_name">' + state.track_name + '</span> <br/>' +
+                '<span class="selection_result_track_artist">' + state.track_artist + '</span>'
+            )
+        }
+
+        function formatStateSelection(state) {
+            if (!state.id) {
+                return state.text;
+            }
+            return $(
+                '<div class="selection_container">' +
+                '<img src="' + state.image + '" class="selection_image"/>' +
+                '<span class="selection_track_name">' + state.track_name + '</span> <br/>' +
+                '<span class="selection_track_artist">' + state.track_artist + '</span>' +
+                '</div>'
+            )
         }
 
         $(document).ready(function () {
-            $('.js-example-basic-single').select2({
+            $('.select_song').select2({
                 placeholder: 'Kies een nummer',
-                minimumInputLength: 2,
-                width: '100%',
+                minimumInputLength: 1,
+                width: 'resolve',
                 "language": "nl",
                 ajax: {
                     url: '{% url 'core:api-search' %}',
@@ -39,8 +54,8 @@
                         };
                     }
                 },
-                templateResult: formatState,
-                templateSelection: formatState,
+                templateResult: formatStateResult,
+                templateSelection: formatStateSelection,
             });
         });
     </script>
@@ -49,97 +64,30 @@
 {% block content %}
     <form id="voteform" action="/top100/thanks" method="post">
         {% csrf_token %}
-        <div id="name_logo_container">
-
-            <div id="name_input_div">
-                <label for="name">Naam:</label>
-                <input type="text" name="name" id="name" value="">
-            </div>
-        </div>
-        <br>
-        <br/>
-        <br/>
+        <label for="name">Naam:</label>
+        <input type="text" name="name" id="name" value="">
         Vul hier je vijf nummers in:
-        <div id="song_input_div">
-            <div id="entry_0" class="song_input">
-                <select class="js-example-basic-single select_song" name="song_0" id="song_0"></select>
+        <div class="my-4">
+            <div id="entry_0" class="my-4 song_input">
+                <select class="select_song" name="song_0" id="song_0"></select>
             </div>
-            <br/>
-            <div id="entry_1" class="song_input">
-                <select class="js-example-basic-single select_song" name="song_1" id="song_1"></select>
+            <div id="entry_1" class="my-4 song_input">
+                <select class="select_song" name="song_1" id="song_1"></select>
                 <input type="hidden" name="uri_1" id="song_1_uri">
             </div>
-            <br/>
-            <div id="entry_2" class="song_input">
-                <select class="js-example-basic-single select_song" name="song_2" id="song_2"></select>
+            <div id="entry_2" class="my-4 song_input">
+                <select class="select_song" name="song_2" id="song_2"></select>
                 <input type="hidden" name="uri_2" id="song_2_uri">
             </div>
-            <br/>
-            <div id="entry_3" class="song_input">
-                <select class="js-example-basic-single select_song" name="song_3" id="song_3"></select>
+            <div id="entry_3" class="my-4 song_input">
+                <select class="select_song" name="song_3" id="song_3"></select>
                 <input type="hidden" name="uri_3" id="song_3_uri">
             </div>
-            <br/>
-            <div id="entry_4" class="song_input">
-                <select class="js-example-basic-single select_song" name="song_4" id="song_4"></select>
+            <div id="entry_4" class="my-4 song_input">
+                <select class="select_song" name="song_4" id="song_4"></select>
                 <input type="hidden" name="uri_4" id="song_4_uri">
             </div>
         </div>
-        <br/>
-        <br/>
-        <input type="submit" style="float:right" class="custom_button">
-        <br/>
-        <br/>
+        <input type="submit" class="btn btn-primary">
     </form>
-    <!--Form for when user inputs custom song-->
-    <!-- The Modal -->
-    <div id="myModal" class="modal">
-
-        <!-- Modal content -->
-        <div class="modal-content">
-            <span id="close_span">✖</span>
-            <div class="modal-body">
-                <b>Let op:</b> Stem, als het kan, op de versie van het nummer dat op Spotify staat/al in de resultaten
-                voor komt.
-                <br/>
-                <div>
-                    <div id="input_div">
-                        <p><label for="custom_song_title">Titel</label><input type="text" size="30"
-                                                                              name="custom_song_title"
-                                                                              id="custom_song_title"/></p>
-                        <p><label for="custom_artist_name">Artiest</label><input type="text" size="30"
-                                                                                 name="custom_artist_name"
-                                                                                 id="custom_artist_name"/></p>
-                    </div>
-                    <div id="loading_div">
-                        <br/>
-                        <img src="{% static 'img/loading.gif' %}" alt="Loading" height="42" width="42">
-                        <br/>
-                        <div id="valid_song_placeholder">Validating INPUT_SONG</div>
-                    </div>
-                    <div id="found_songs_div">
-                        <br/>
-                        De volgende liedjes lijken erg veel op het door jou ingevulde liedje: <br/>
-                        <select class="js-example-basic-single" name="custom_found_song" id="custom_found_song"
-                                style="width:300px"></select>
-                        <input type="hidden" name="uri_custom" id="custom_found_uri">
-                    </div>
-                </div>
-                <div id="button_song_found_div">
-                    <p>
-                        <button type="button" onclick="replaceOwnSongWithFound()" class="custom_button">Bovenstaand
-                            liedje toevoegen
-                        </button>
-                        of <a class="secondary_choice" onclick="addOwnCustomSong()" href="">Toch eigen liedje
-                        toevoegen</a></p>
-                </div>
-                <div id="button_div">
-                    <p>
-                        <button type="button" class="custom_button" onclick="addSong()">Toevoegen</button>
-                        of <a class="secondary_choice" id="close_modal" href="/">Annuleren</a></p>
-                </div>
-            </div>
-        </div>
-
-    </div>
 {% endblock %}
