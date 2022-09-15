@@ -31,7 +31,9 @@ def spotipy_search(request):
             {
                 "id": track["uri"],
                 "track_name": track["name"],
-                "track_artist": track["artists"][0]["name"],
+                "track_artist": ", ".join(
+                    artist["name"] for artist in track["artists"]
+                ),
                 "image": track["album"]["images"][0]["url"],
             }
         )

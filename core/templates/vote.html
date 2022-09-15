@@ -21,9 +21,13 @@
                 return state.text;
             }
             return $(
+                '<div class="selection_result_container">' +
                 '<img src="' + state.image + '" class="selection_result_image"/>' +
-                '<span class="selection_result_track_name">' + state.track_name + '</span> <br/>' +
-                '<span class="selection_result_track_artist">' + state.track_artist + '</span>'
+                '<div>' +
+                '<p class="selection_result_track_name">' + state.track_name + '</p>' +
+                '<p class="selection_result_track_artist">' + state.track_artist + '</p>' +
+                '</div>' +
+                '</div>'
             )
         }
 
@@ -34,8 +38,10 @@
             return $(
                 '<div class="selection_container">' +
                 '<img src="' + state.image + '" class="selection_image"/>' +
-                '<span class="selection_track_name">' + state.track_name + '</span> <br/>' +
-                '<span class="selection_track_artist">' + state.track_artist + '</span>' +
+                '<div>' +
+                '<p class="selection_track_name">' + state.track_name + '</p>' +
+                '<p class="selection_track_artist">' + state.track_artist + '</p>' +
+                '</div>' +
                 '</div>'
             )
         }
