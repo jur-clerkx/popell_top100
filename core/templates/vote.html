@@ -14,7 +14,7 @@
 
     <script>
         function formatStateResult(state) {
-            if (!state.id) {
+            if (!state.id) { // Select2 internal message (e.g. "Searching...")
                 return state.text;
             }
             return $(
@@ -29,9 +29,18 @@
         }
 
         function formatStateSelection(state) {
-            if (!state.id) {
+            if (!state.id) {  // Select2 internal message (e.g. "Searching...")
                 return state.text;
             }
+            if (state.id && !state.track_name) { // Initial item of which metadata hasn't been loaded yet.
+                console.log("update");
+                let xhr = new XMLHttpRequest();
+                xhr.open("GET", '/api/get/' + encodeURIComponent(state.id), false)
+                xhr.send(null);
+                state = JSON.parse(xhr.response);
+
+            }
+
             return $(
                 '<div class="selection_container">' +
                 '<img src="' + state.image + '" class="selection_image"/>' +
@@ -70,27 +79,55 @@
     <form method="post">
         {% csrf_token %}
         <label for="name">Naam:</label>
-        <input type="text" name="name" id="name" value="" placeholder="Pietje puk" required>
+        {{ voteForm.name.errors }}
+        <input type="text" name="name" id="name"
+               value="{% if voteForm.name.value %}{{ voteForm.name.value }}{% endif %}" placeholder="Pietje puk">
         <div class="my-4">
+            {{ voteForm.non_field_errors }}
             <div class="my-4 song_input">
-                <label for="song_0">Nummer 1 (5 punten):</label>
-                <select class="select_song" name="song_0" id="song_0" required></select>
+                <label for="song_1">Nummer 1 (5 punten):</label>
+                {{ voteForm.song_1.errors }}
+                <select class="select_song" name="song_1" id="song_1">
+                    {% if voteForm.song_1.value %}
+                        <option value="{{ voteForm.song_1.value }}" selected>init</option>
+                    {% endif %}
+                </select>
             </div>
             <div class="my-4 song_input">
-                <label for="song_1">Nummer 2 (4 punten):</label>
-                <select class="select_song" name="song_1" id="song_1" required></select>
+                <label for="song_2">Nummer 2 (4 punten):</label>
+                {{ voteForm.song_2.errors }}
+                <select class="select_song" name="song_2" id="song_2">
+                    {% if voteForm.song_2.value %}
+                        <option value="{{ voteForm.song_2.value }}" selected>init</option>
+                    {% endif %}
+                </select>
             </div>
             <div class="my-4 song_input">
-                <label for="song_2">Nummer 3 (3 punten):</label>
-                <select class="select_song" name="song_2" id="song_2" required></select>
+                <label for="song_3">Nummer 3 (3 punten):</label>
+                {{ voteForm.song_3.errors }}
+                <select class="select_song" name="song_3" id="song_3">
+                    {% if voteForm.song_3.value %}
+                        <option value="{{ voteForm.song_3.value }}" selected>init</option>
+                    {% endif %}
+                </select>
             </div>
             <div class="my-4 song_input">
-                <label for="song_3">Nummer 4 (2 punten):</label>
-                <select class="select_song" name="song_3" id="song_3" required></select>
+                <label for="song_4">Nummer 4 (2 punten):</label>
+                {{ voteForm.song_4.errors }}
+                <select class="select_song" name="song_4" id="song_4">
+                    {% if voteForm.song_4.value %}
+                        <option value="{{ voteForm.song_4.value }}" selected>init</option>
+                    {% endif %}
+                </select>
             </div>
             <div class="my-4 song_input">
-                <label for="song_4">Nummer 5 (1 punten):</label>
-                <select class="select_song" name="song_4" id="song_4" required></select>
+                <label for="song_5">Nummer 5 (1 punten):</label>
+                {{ voteForm.song_5.errors }}
+                <select class="select_song" name="song_5" id="song_5">
+                    {% if voteForm.song_5.value %}
+                        <option value="{{ voteForm.song_5.value }}" selected>init</option>
+                    {% endif %}
+                </select>
             </div>
         </div>
         <input type="submit" class="btn btn-primary">

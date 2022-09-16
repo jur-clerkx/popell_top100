@@ -7,4 +7,9 @@ urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("stemmen/", views.VoteView.as_view(), name="stemmen"),
     path("api/search/", views.SpotipySearchView.as_view(), name="api-search"),
+    path(
+        "api/get/<str:spotifyuri>",
+        views.SpotipyGetView.as_view(),
+        name="api-get",
+    ),
 ]
