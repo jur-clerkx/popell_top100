@@ -45,6 +45,9 @@ class Artist(models.Model):
             artist.save()
             return artist
 
+    def __str__(self):
+        return self.name
+
 
 class Track(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -128,6 +131,9 @@ class VoteSubmission(models.Model):
             points=1,
         )
         return submission
+
+    def __str__(self):
+        return self.submitter_name
 
 
 class Vote(models.Model):
