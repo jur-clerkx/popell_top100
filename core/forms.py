@@ -1,5 +1,7 @@
 from django import forms
 
+from core.models import VoteSubmission
+
 
 class VoteSubmissionForm(forms.Form):
     name = forms.CharField(max_length=255, min_length=2, required=True)
@@ -22,3 +24,14 @@ class VoteSubmissionForm(forms.Form):
                 "U kunt niet 2 of meerder keren op hetzelfde nummer stemmen."
             )
         return super().clean()
+
+    def save(self):
+        cleaned_data = super().clean()
+        return VoteSubmission.create_vote_submission(
+            cleaned_data.get("name"),
+            cleaned_data.get("song_1"),
+            cleaned_data.get("song_2"),
+            cleaned_data.get("song_3"),
+            cleaned_data.get("song_4"),
+            cleaned_data.get("song_5"),
+        )

@@ -1,0 +1,35 @@
+import os
+
+from spotipy import Spotify, SpotifyClientCredentials
+
+from core.spotify.domain import Track, Artist
+
+
+def get_client():
+    spotipy_credentials = SpotifyClientCredentials(
+        client_id=os.getenv("SPOTIPY_CLIENT_ID"),
+        client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
+    )
+    return Spotify(client_credentials_manager=spotipy_credentials)
+
+
+def search_tracks(q):
+    spotify = get_client()
+    search_result = spotify.search(q=q, limit=10, type="track", market="NL")
+    found_tracks = search_result["tracks"]["items"]
+    formatted_tracks = []
+    for track in found_tracks:
+        formatted_tracks.append(Track.from_json(track))
+    return formatted_tracks
+
+
+def get_track_by_uri(uri):
+    spotify = get_client()
+    track = spotify.track(uri)
+    return Track.from_json(track)
+
+
+def get_artist_by_uri(uri):
+    spotify = get_client()
+    artist = spotify.artist(uri)
+    return Artist.from_json(artist)

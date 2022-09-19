@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% load static %}
+{% load core_extras %}
+
+{% block imports %}
+    <link href="{% static 'css/vote_submission.css' %}" rel="stylesheet">
+{% endblock %}
+
+
+{% block title %}Top 100{% endblock %}
+
+{% block content %}
+    <h2 class="py-4 border-bottom">Inzending van {{ object.submitter_name }}</h2>
+    <div class="vote_submission_container">
+        <h4>Nummer 1 (5 punten):</h4>
+        <div class="vote_container pb-4">
+            <img class="vote_track_image" src="{{ object.vote_set.all.0.track.image_url }}"
+                 alt="{{ object.vote_set.all.0.track.title }}"/>
+            <div>
+                <p class="vote_track_name">{{ object.vote_set.all.0.track.title }}</p>
+                <p class="vote_artist">{{ object.vote_set.all.0.track.artists.all | artist_list }}</p>
+            </div>
+            <audio class="vote_track_preview" controls>
+                <source src="{{ object.vote_set.all.0.track.preview_url }}">
+            </audio>
+        </div>
+        <h4>Nummer 2 (4 punten):</h4>
+        <div class="vote_container pb-4">
+            <img class="vote_track_image" src="{{ object.vote_set.all.1.track.image_url }}"
+                 alt="{{ object.vote_set.all.1.track.title }}"/>
+            <div>
+                <p class="vote_track_name">{{ object.vote_set.all.1.track.title }}</p>
+                <p class="vote_artist">{{ object.vote_set.all.1.track.artists.all | artist_list }}</p>
+            </div>
+            <audio class="vote_track_preview" controls>
+                <source src="{{ object.vote_set.all.1.track.preview_url }}">
+            </audio>
+        </div>
+        <h4>Nummer 3 (3 punten):</h4>
+        <div class="vote_container pb-4">
+            <img class="vote_track_image" src="{{ object.vote_set.all.2.track.image_url }}"
+                 alt="{{ object.vote_set.all.2.track.title }}"/>
+            <div>
+                <p class="vote_track_name">{{ object.vote_set.all.2.track.title }}</p>
+                <p class="vote_artist">{{ object.vote_set.all.2.track.artists.all | artist_list }}</p>
+            </div>
+            <audio class="vote_track_preview" controls>
+                <source src="{{ object.vote_set.all.2.track.preview_url }}">
+            </audio>
+        </div>
+        <h4>Nummer 4 (2 punten):</h4>
+        <div class="vote_container pb-4">
+            <img class="vote_track_image" src="{{ object.vote_set.all.3.track.image_url }}"
+                 alt="{{ object.vote_set.all.3.track.title }}"/>
+            <div>
+                <p class="vote_track_name">{{ object.vote_set.all.3.track.title }}</p>
+                <p class="vote_artist">{{ object.vote_set.all.3.track.artists.all | artist_list }}</p>
+            </div>
+            <audio class="vote_track_preview" controls>
+                <source src="{{ object.vote_set.all.3.track.preview_url }}">
+            </audio>
+        </div>
+        <h4>Nummer 5 (1 punt):</h4>
+        <div class="vote_container pb-4">
+            <img class="vote_track_image" src="{{ object.vote_set.all.4.track.image_url }}"
+                 alt="{{ object.vote_set.all.4.track.title }}"/>
+            <div>
+                <p class="vote_track_name">{{ object.vote_set.all.4.track.title }}</p>
+                <p class="vote_artist">{{ object.vote_set.all.4.track.artists.all | artist_list }}</p>
+            </div>
+            <audio class="vote_track_preview" controls>
+                <source src="{{ object.vote_set.all.4.track.preview_url }}">
+            </audio>
+        </div>
+    </div>
+{% endblock %}

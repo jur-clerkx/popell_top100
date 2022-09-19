@@ -22,7 +22,9 @@
                 '<img src="' + state.image + '" class="selection_result_image"/>' +
                 '<div>' +
                 '<p class="selection_result_track_name">' + state.track_name + '</p>' +
-                '<p class="selection_result_track_artist">' + state.track_artist + '</p>' +
+                '<p class="selection_result_track_artist">' + state.track_artists.map(function (artist) {
+                    return artist.name
+                }).join(', ') + '</p>' +
                 '</div>' +
                 '</div>'
             )
@@ -46,7 +48,9 @@
                 '<img src="' + state.image + '" class="selection_image"/>' +
                 '<div>' +
                 '<p class="selection_track_name">' + state.track_name + '</p>' +
-                '<p class="selection_track_artist">' + state.track_artist + '</p>' +
+                '<p class="selection_track_artist">' + state.track_artists.map(function (artist) {
+                    return artist.name
+                }).join(', ') + '</p>' +
                 '</div>' +
                 '</div>'
             )
@@ -59,6 +63,7 @@
                 width: 'resolve',
                 "language": "nl",
                 ajax: {
+                    delay: 250,
                     url: '{% url 'core:api-search' %}',
                     data: function (params) {
                         return {

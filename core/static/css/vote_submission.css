@@ -1,0 +1,49 @@
+.vote_container {
+    display: grid;
+    grid-template-columns: auto 2fr;
+    gap: 20px;
+}
+
+.vote_track_image {
+    width: 100%;
+    max-width: 200px;
+    min-width: 50px;
+    margin: auto;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+
+.vote_track_name {
+    font-size: 2em;
+    font-weight: bold;
+    margin: 0;
+}
+
+.vote_artist {
+    font-size: 1.25em;
+}
+
+.vote_track_preview {
+    grid-row-start: 2;
+    grid-column-start: 2;
+}
+
+@media (max-width: 576px) {
+    .vote_track_name {
+        font-size: 1em;
+    }
+
+    .vote_artist {
+        font-size: 0.75em;
+    }
+
+    .vote_track_image {
+        grid-row-end: 2;
+    }
+
+    .vote_track_preview {
+        grid-row-start: 2;
+        grid-column-start: 1;
+        grid-column-end: 3;
+    }
+}
