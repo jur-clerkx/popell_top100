@@ -17,4 +17,5 @@ urlpatterns = [
         views.SpotipyGetView.as_view(),
         name="api-get",
     ),
+    path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
 ]

@@ -1,5 +1,6 @@
 from dataclasses import asdict
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -65,3 +66,7 @@ class SpotipySearchView(View):
 class SpotipyGetView(View):
     def get(self, request, spotifyuri, *args, **kwargs):
         return JsonResponse(asdict(spotify.get_track_by_uri(spotifyuri)))
+
+
+class DashboardView(LoginRequiredMixin, TemplateView):
+    template_name = "dashboard/base.html"
