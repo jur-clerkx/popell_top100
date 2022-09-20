@@ -2,15 +2,27 @@
 {% load static %}
 {% load core_extras %}
 
-{% block imports %}
+{% block head %}
     <link href="{% static 'css/vote_submission.css' %}" rel="stylesheet">
+    <meta property="og:url" content="{{ request.path }}"/>
+    <meta property="og:title" content="Mijn Bachelorclub Top 100 Inzending"/>
+    <meta property="og:description" content="Bekijk de inzending van {{ object.submitter_name }}!"/>
+    <meta property="og:image" content="{% static 'img/popell_background.webp' %}"/>
 {% endblock %}
 
 
 {% block title %}Top 100{% endblock %}
 
 {% block content %}
+    <!-- Facebook javascript SDK-->
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v15.0"
+            nonce="4R8VAr9R"></script>
     <h2 class="py-4 border-bottom">Inzending van {{ object.submitter_name }}</h2>
+    <div class="fb-share-button" data-href="{{ request.path }}" data-layout="button"
+         data-size="large"><a target="_blank"
+                              href="https://www.facebook.com/sharer/sharer.php?u={{ request.path|urlencode }}&amp;src=sdkpreparse"
+                              class="fb-xfbml-parse-ignore">Delen</a></div>
     <div class="vote_submission_container">
         <h4>Nummer 1 (5 punten):</h4>
         <div class="vote_container pb-4">
