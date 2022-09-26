@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from django.db import models, transaction
@@ -13,6 +14,17 @@ class HitList(models.Model):
     vote_start_date = models.DateTimeField(blank=False, null=False)
     vote_end_date = models.DateTimeField(blank=False, null=False)
     is_closed = models.BooleanField(default=False)
+
+    @staticmethod
+    def get_current_hitlist():
+        now = datetime.datetime.now()
+        current_hitlist = HitList.objects.filter(
+            vote_start_date__lte=now, vote_end_date__gte=now, is_closed=False
+        )
+        if current_hitlist:
+            return current_hitlist.first()
+        else:
+            return None
 
 
 class Artist(models.Model):
@@ -97,13 +109,21 @@ class VoteSubmission(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     submitter_name = models.CharField(max_length=255, blank=False, null=False)
     is_invalidated = models.BooleanField(default=False)
+    timestamp = models.DateTimeField(default=datetime.datetime.now)
+
+    hit_list = models.ForeignKey(
+        HitList, blank=False, null=False, on_delete=models.PROTECT
+    )
 
     @staticmethod
     @transaction.atomic
     def create_vote_submission(
         name, song_1_uri, song_2_uri, song_3_uri, song_4_uri, song_5_uri
     ):
-        submission = VoteSubmission(submitter_name=name)
+        hitlist = HitList.get_current_hitlist()
+        if not hitlist:
+            raise Exception("Er is geen open hitlijst op dit moment!")
+        submission = VoteSubmission(submitter_name=name, hit_list=hitlist)
         submission.save()
         Vote.objects.create(
             track=Track.get_or_create_song_by_uri(song_1_uri),

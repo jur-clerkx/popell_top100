@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Stemmen{% endblock %}
+{% block title %}{{ hitlist.name }}{% endblock %}
 
 {% block head %}
     <link href="{% static 'css/vote.css' %}" rel="stylesheet">
@@ -79,7 +79,7 @@
 {% endblock %}
 
 {% block content %}
-    <h2>Bachelorclub Top 100 stemformulier</h2>
+    <h2>{{ hitlist.name }} stemformulier</h2>
     <br/>
     <form method="post">
         {% csrf_token %}

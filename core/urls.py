@@ -5,6 +5,7 @@ from . import views
 app_name = "core"
 urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
+    path("closed/", views.HitlistClosedView.as_view(), name="closed"),
     path("stemmen/", views.VoteView.as_view(), name="vote"),
     path(
         "stem/<uuid:pk>",

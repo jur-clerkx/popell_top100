@@ -21,16 +21,37 @@ from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
 
 
-class IndexView(TemplateView):
+class OpenHitListRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if not HitList.get_current_hitlist():
+            return redirect("core:closed")
+        return super().dispatch(request, *args, **kwargs)
+
+
+class IndexView(OpenHitListRequiredMixin, TemplateView):
     template_name = "index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["hitlist"] = HitList.get_current_hitlist()
+        return context
 
-class VoteView(View):
+
+class HitlistClosedView(TemplateView):
+    template_name = "closed.html"
+
+
+class VoteView(OpenHitListRequiredMixin, View):
     template_name = "vote.html"
 
     def get(self, request, *args, **kwargs):
         return render(
-            request, self.template_name, {"voteForm": VoteSubmissionForm()}
+            request,
+            self.template_name,
+            {
+                "voteForm": VoteSubmissionForm(),
+                "hitlist": HitList.get_current_hitlist(),
+            },
         )
 
     def post(self, request, *args, **kwargs):

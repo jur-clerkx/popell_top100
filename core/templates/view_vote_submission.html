@@ -11,14 +11,14 @@
 {% endblock %}
 
 
-{% block title %}Top 100{% endblock %}
+{% block title %}{{ object.hit_list.name }}{% endblock %}
 
 {% block content %}
     <!-- Facebook javascript SDK-->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v15.0"
             nonce="4R8VAr9R"></script>
-    <h2 class="py-4 border-bottom">Inzending van {{ object.submitter_name }}</h2>
+    <h2 class="py-4 border-bottom">Inzending van {{ object.submitter_name }} voor {{ object.hit_list.name }}</h2>
     <div class="fb-share-button" data-href="{{ request.path }}" data-layout="button"
          data-size="large"><a target="_blank"
                               href="https://www.facebook.com/sharer/sharer.php?u={{ request.path|urlencode }}&amp;src=sdkpreparse"
