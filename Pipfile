@@ -6,6 +6,8 @@ name = "pypi"
 [packages]
 django = "~=4.1"
 spotipy = "~=2.2"
+django-crispy-forms = "~=1.14"
+crispy_bootstrap5 = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"

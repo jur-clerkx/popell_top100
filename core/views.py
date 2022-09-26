@@ -3,14 +3,22 @@ from dataclasses import asdict
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from django.views import View
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import (
+    TemplateView,
+    DetailView,
+    ListView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.utils.translation import activate
 
 from core.forms import VoteSubmissionForm
-from core.models import VoteSubmission
+from core.models import VoteSubmission, HitList
 from core.spotify import spotify
+from core.widgets import CustomDateTimeInput
 
 
 class IndexView(TemplateView):
@@ -69,4 +77,41 @@ class SpotipyGetView(View):
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
-    template_name = "dashboard/base.html"
+    template_name = "dashboard/index.html"
+
+
+class HistListListView(LoginRequiredMixin, ListView):
+    model = HitList
+    template_name = "dashboard/cms/hitlistlist.html"
+
+
+class HitListCreateView(LoginRequiredMixin, CreateView):
+    model = HitList
+    template_name = "dashboard/cms/hitlistcreate.html"
+    fields = ["name", "vote_start_date", "vote_end_date"]
+    success_url = reverse_lazy("core:hitlist-list")
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["vote_start_date"].widget = CustomDateTimeInput()
+        form.fields["vote_end_date"].widget = CustomDateTimeInput()
+        return form
+
+
+class HitListUpdateView(LoginRequiredMixin, UpdateView):
+    model = HitList
+    template_name = "dashboard/cms/hitlistupdate.html"
+    fields = ["name", "vote_start_date", "vote_end_date", "is_closed"]
+    success_url = reverse_lazy("core:hitlist-list")
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["vote_start_date"].widget = CustomDateTimeInput()
+        form.fields["vote_end_date"].widget = CustomDateTimeInput()
+        return form
+
+
+class HitListDeleteView(LoginRequiredMixin, DeleteView):
+    model = HitList
+    success_url = reverse_lazy("core:hitlist-list")
+    template_name = "dashboard/cms/hitlistdelete.html"

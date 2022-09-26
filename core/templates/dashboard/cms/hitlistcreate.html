@@ -1,0 +1,22 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}
+    <h1>Nieuwe lijst aanmaken</h1>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                {{ form | crispy }}
+
+            </div>
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <a href="{% url "core:hitlist-list" %}" class="btn btn-link">Annuleren</a>
+                    <button type="submit" class="btn btn-primary ms-auto">Aanmaken</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

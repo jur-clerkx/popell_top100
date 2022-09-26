@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}
+    <h1>Top 100 lijsten</h1>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-vcenter table-mobile-md card-table">
+                <tr>
+                    <th>Naam</th>
+                    <th>Stembus geopend</th>
+                    <th>Stembus gesloten</th>
+                    <th>Is gesloten?</th>
+                    <th><a href="{% url "core:hitlist-create" %}" class="btn btn-success">+</a></th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.name }}</td>
+                        <td>{{ object.vote_start_date }}</td>
+                        <td>{{ object.vote_end_date }}</td>
+                        <td>{% if object.is_closed %}Ja{% else %}Nee{% endif %}</td>
+                        <td>
+                            <a href="{% url "core:hitlist-update" object.pk %}" class="btn btn-warning">Bewerken</a>
+                            <a href="{% url "core:hitlist-delete" object.pk %}" class="btn btn-danger">Verwijderen</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <h3>Nog geen lijsten aangemaakt</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

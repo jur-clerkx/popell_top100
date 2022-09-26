@@ -18,4 +18,24 @@ urlpatterns = [
         name="api-get",
     ),
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
+    path(
+        "dashboard/cms/hitlist",
+        views.HistListListView.as_view(),
+        name="hitlist-list",
+    ),
+    path(
+        "dashboard/cms/hitlist/create",
+        views.HitListCreateView.as_view(),
+        name="hitlist-create",
+    ),
+    path(
+        "dashboard/cms/hitlist/update/<str:pk>",
+        views.HitListUpdateView.as_view(),
+        name="hitlist-update",
+    ),
+    path(
+        "dashboard/cms/hitlist/delete/<str:pk>",
+        views.HitListDeleteView.as_view(),
+        name="hitlist-delete",
+    ),
 ]
