@@ -2,6 +2,7 @@ import datetime
 import uuid
 
 from django.db import models, transaction
+from django.db.models import Count, Sum
 
 from core.spotify import spotify
 
@@ -25,6 +26,14 @@ class HitList(models.Model):
             return current_hitlist.first()
         else:
             return None
+
+    def get_list(self):
+        return (
+            Track.objects.filter(vote__submission__hit_list=self)
+            .annotate(votes=Count("vote__points"), score=Sum("vote__points"))
+            .order_by("-score", "-votes")
+            .prefetch_related("artists")
+        )
 
 
 class Artist(models.Model):

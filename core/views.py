@@ -2,7 +2,7 @@ from dataclasses import asdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
 from django.views.generic import (
@@ -99,6 +99,20 @@ class SpotipyGetView(View):
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard/index.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+
+        arg = self.request.GET.get("list", None)
+        if arg:
+            try:
+                ctx["hitlist"] = HitList.objects.get(pk=arg)
+            except Exception:
+                ctx["hitlist"] = HitList.get_current_hitlist()
+        else:
+            ctx["hitlist"] = HitList.get_current_hitlist()
+        ctx["hitlists"] = HitList.objects.all()
+        return ctx
 
 
 class HistListListView(LoginRequiredMixin, ListView):

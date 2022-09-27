@@ -1,8 +1,55 @@
 {% extends 'dashboard/base.html' %}
+{% load core_extras %}
 {% block title %}
     <h1>Dashboard</h1>
 {% endblock %}
 
+{% block head %}
+    <script>
+        function changeHitlist() {
+            window.location.href = "?list=" + document.getElementById("hitlistSelect").value;
+        }
+    </script>
+{% endblock %}
+
 {% block content %}
-    <p>Lorum ipsum</p>
+    <p>Tussenstand voor {{ hitlist.name }}</p>
+
+
+
+    <div class="card">
+        <div class="card-header">
+            <select class="form-select" id="hitlistSelect" onchange="changeHitlist()">
+                {% for item in hitlists %}
+                    <option{% if item == hitlist %} selected{% endif %} value="{{ item.id }}">{{ item.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+                <tr>
+                    <th>#</th>
+                    <th>Titel</th>
+                    <th>Artiest</th>
+                    <th>Punten</th>
+                    <th>Stemmen</th>
+                </tr>
+                {% for track in hitlist.get_list %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ track.title }}</td>
+                        <td>{{ track.artists.all | artist_list }}</td>
+                        <td>{{ track.score }}</td>
+                        <td>{{ track.votes }}</td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <h3>Nog stemmen binnen</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
 {% endblock %}
