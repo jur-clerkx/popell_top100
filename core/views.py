@@ -67,7 +67,11 @@ class VoteView(OpenHitListRequiredMixin, View):
                     kwargs={"pk": vote_submission.id},
                 )
             )
-        return render(request, self.template_name, {"voteForm": form})
+        return render(
+            request,
+            self.template_name,
+            {"voteForm": form, "hitlist": HitList.get_current_hitlist()},
+        )
 
 
 class VoteSubmissionDetailView(DetailView):
