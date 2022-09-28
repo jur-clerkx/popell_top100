@@ -13,17 +13,17 @@
 {% endblock %}
 
 {% block content %}
-    <p>Tussenstand voor {{ hitlist.name }}</p>
-
-
-
-    <div class="card">
+    <label for="hitlistSelect">
+        <p>Selecteer lijst voor overzicht:</p>
+    </label>
+    <select class="form-select" id="hitlistSelect" onchange="changeHitlist()">
+        {% for item in hitlists %}
+            <option{% if item == hitlist %} selected{% endif %} value="{{ item.id }}">{{ item.name }}</option>
+        {% endfor %}
+    </select>
+    <div class="card mt-4">
         <div class="card-header">
-            <select class="form-select" id="hitlistSelect" onchange="changeHitlist()">
-                {% for item in hitlists %}
-                    <option{% if item == hitlist %} selected{% endif %} value="{{ item.id }}">{{ item.name }}</option>
-                {% endfor %}
-            </select>
+            <h4>Tussenstand voor {{ hitlist.name }}</h4>
         </div>
         <div class="table-responsive">
             <table class="table card-table table-vcenter text-nowrap datatable">
@@ -52,4 +52,45 @@
             </table>
         </div>
     </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Stemmen voor {{ hitlist.name }}</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+                <tr>
+                    <th>Ongeldig?</th>
+                    <th>Door</th>
+                    <th>Tijd</th>
+                    <th>#1</th>
+                    <th>#2</th>
+                    <th>#3</th>
+                    <th>#4</th>
+                    <th>#5</th>
+                </tr>
+                {% for vote in hitlist.votesubmission_set.all %}
+                    {% with vote.vote_set.all as votes %}
+                        <tr>
+                            <td>{{ vote.is_invalidated|yesno:"Ja,Nee" }}</td>
+                            <td>{{ vote.submitter_name }}</td>
+                            <td>{{ vote.timestamp }}</td>
+                            <td>{{ votes.0.track }}</td>
+                            <td>{{ votes.1.track }}</td>
+                            <td>{{ votes.2.track }}</td>
+                            <td>{{ votes.3.track }}</td>
+                            <td>{{ votes.4.track }}</td>
+                        </tr>
+                    {% endwith %}
+                {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <h3>Nog stemmen binnen</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
