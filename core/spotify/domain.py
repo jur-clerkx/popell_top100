@@ -38,3 +38,19 @@ class Track:
             json["external_urls"]["spotify"],
             json["preview_url"],
         )
+
+    @staticmethod
+    def from_model(model):
+        return Track(
+            model.id,
+            model.title,
+            list(
+                map(
+                    lambda artist: Artist(artist.id, artist.name, ""),
+                    model.artists.all(),
+                )
+            ),
+            "",
+            "",
+            "",
+        )

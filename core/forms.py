@@ -1,6 +1,6 @@
 from django import forms
 
-from core.models import VoteSubmission
+from core.models import VoteSubmission, Track
 
 
 class VoteSubmissionForm(forms.Form):
@@ -34,4 +34,15 @@ class VoteSubmissionForm(forms.Form):
             cleaned_data.get("song_3"),
             cleaned_data.get("song_4"),
             cleaned_data.get("song_5"),
+        )
+
+
+class CustomTrackForm(forms.Form):
+    title = forms.CharField(max_length=255, min_length=2, required=True)
+    artist = forms.CharField(max_length=255, min_length=2, required=True)
+
+    def save(self):
+        cleaned_data = super().clean()
+        return Track.create_custom_track(
+            cleaned_data["title"], cleaned_data["artist"]
         )

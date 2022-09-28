@@ -12,10 +12,11 @@ from django.views.generic import (
     CreateView,
     UpdateView,
     DeleteView,
+    FormView,
 )
 from django.utils.translation import activate
 
-from core.forms import VoteSubmissionForm
+from core.forms import VoteSubmissionForm, CustomTrackForm
 from core.models import VoteSubmission, HitList
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
@@ -84,15 +85,28 @@ class VoteSubmissionDetailView(DetailView):
         )
 
 
+class AddCustomTrackView(FormView):
+    form_class = CustomTrackForm
+    template_name = "add_custom_song.html"
+    success_url = reverse_lazy("core:add-custom-track-success")
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)
+
+
+class AddCustomTrackSuccessView(TemplateView):
+    template_name = "add_custom_song_success.html"
+
+
 class SpotipySearchView(View):
     def get(self, request, *args, **kwargs):
         q = request.GET.get("q")
+        search_results = spotify.search_custom_tracks(
+            q
+        ) + spotify.search_tracks(q)
         return JsonResponse(
-            {
-                "results": list(
-                    map(lambda x: asdict(x), spotify.search_tracks(q))
-                )
-            }
+            {"results": list(map(lambda x: asdict(x), search_results))}
         )
 
 

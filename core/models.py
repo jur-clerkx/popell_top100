@@ -66,6 +66,12 @@ class Artist(models.Model):
             artist.save()
             return artist
 
+    @staticmethod
+    def create_custom_artist(name):
+        artist = Artist(name=name, is_non_spotify=True)
+        artist.save()
+        return artist
+
     def __str__(self):
         return self.name
 
@@ -88,6 +94,13 @@ class Track(models.Model):
 
     @staticmethod
     def get_or_create_song_by_uri(song_uri):
+        if song_uri.startswith("spotify:track:"):
+            return Track.get_or_create_song_by_spotify_uri(song_uri)
+        else:
+            return Track.objects.get(id=song_uri)
+
+    @staticmethod
+    def get_or_create_song_by_spotify_uri(song_uri):
         try:
             return Track.objects.get(spotify_uri=song_uri)
         except models.ObjectDoesNotExist:  # Create track in the database
@@ -109,6 +122,15 @@ class Track(models.Model):
             for artist in artists:
                 track.artists.add(artist)
             return track
+
+    @staticmethod
+    @transaction.atomic
+    def create_custom_track(track_title, track_artist):
+        artist = Artist.create_custom_artist(track_artist)
+        track = Track(title=track_title, is_non_spotify=True)
+        track.save()
+        track.artists.add(artist)
+        return track
 
     def __str__(self):
         return self.title

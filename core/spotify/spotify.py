@@ -3,6 +3,7 @@ import os
 from spotipy import Spotify, SpotifyClientCredentials
 
 from core.spotify.domain import Track, Artist
+from core import models
 
 
 def get_client():
@@ -23,7 +24,26 @@ def search_tracks(q):
     return formatted_tracks
 
 
+def search_custom_tracks(q):
+    found_tracks = models.Track.objects.filter(
+        title__icontains=q, is_non_spotify=True
+    ) | models.Track.objects.filter(
+        artists__name__icontains=q, is_non_spotify=True
+    )
+    formatted_tracks = []
+    for track in found_tracks:
+        formatted_tracks.append(Track.from_model(track))
+    return formatted_tracks
+
+
 def get_track_by_uri(uri):
+    if uri.startswith("spotify:track:"):
+        return get_track_by_spotify_uri(uri)
+    else:
+        return Track.from_model(models.Track.objects.get(id=uri))
+
+
+def get_track_by_spotify_uri(uri):
     spotify = get_client()
     track = spotify.track(uri)
     return Track.from_json(track)

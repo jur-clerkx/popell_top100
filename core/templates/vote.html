@@ -87,6 +87,9 @@
         {{ voteForm.name.errors }}
         <input type="text" name="name" id="name"
                value="{% if voteForm.name.value %}{{ voteForm.name.value }}{% endif %}" placeholder="Pietje puk">
+
+        <p class="my-2">Wij zoeken nummers op spotify. Staat het nummer waar je op wilt stemmen er niet tussen? Druk
+            dan op de knop aan de onderkant van de pagina om een eigen nummer toe te voegen.</p>
         <div class="my-4">
             {{ voteForm.non_field_errors }}
             <div class="my-4 song_input">
@@ -135,6 +138,7 @@
                 </select>
             </div>
         </div>
-        <input type="submit" class="btn btn-popell">
+        <input type="submit" class="btn btn-popell me-2 mb-2">
+        <a class="btn btn-popell" href="{% url 'core:add-custom-track' %}" target="_blank">Eigen nummer toevoegen</a>
     </form>
 {% endblock %}

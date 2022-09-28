@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}{{ hitlist.name }}{% endblock %}
+{% block content %}
+    <h1>Eigen nummer toevoegen</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <a href="javascript:close();" class="btn btn-popell">Annuleren</a>
+        <button type="submit" class="btn btn-popell">Aanmaken</button>
+    </form>
+{% endblock %}

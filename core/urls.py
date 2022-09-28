@@ -12,6 +12,16 @@ urlpatterns = [
         views.VoteSubmissionDetailView.as_view(),
         name="vote-submission-detail",
     ),
+    path(
+        "eigen-nummer-toegevoegen/",
+        views.AddCustomTrackView.as_view(),
+        name="add-custom-track",
+    ),
+    path(
+        "eigen-nummer-is-toegevoegd/",
+        views.AddCustomTrackSuccessView.as_view(),
+        name="add-custom-track-success",
+    ),
     path("api/search/", views.SpotipySearchView.as_view(), name="api-search"),
     path(
         "api/get/<str:spotifyuri>",

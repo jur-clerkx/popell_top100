@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}{{ hitlist.name }}{% endblock %}
+{% block content %}
+    <h1>Je nummer is toegevoegd!</h1>
+    <p>Je kunt nu deze pagina sluiten.</p>
+    <a class="btn btn-popell" href="javascript:close()">Sluit pagina</a>
+{% endblock %}
