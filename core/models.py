@@ -22,7 +22,7 @@ class HitList(models.Model):
         now = datetime.datetime.now()
         current_hitlist = HitList.objects.filter(
             vote_start_date__lte=now, vote_end_date__gte=now, is_closed=False
-        )
+        ).prefetch_related("votesubmission_set__vote_set__track__artists")
         if current_hitlist:
             return current_hitlist.first()
         else:
