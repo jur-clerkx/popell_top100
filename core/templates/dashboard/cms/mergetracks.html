@@ -1,0 +1,30 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_filters %}
+{% block head %}
+    {{ form.media.css }}
+    <style>
+        .select2-results__option {color: black!important;}
+    </style>
+{% endblock %}
+{% block title %}
+    <h1>Nummers samenvoegen</h1>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                {{ form | crispy }}
+            </div>
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <a href="{% url "core:dashboard" %}" class="btn btn-link">Annuleren</a>
+                    <button type="submit" class="btn btn-primary ms-auto">Aanpassen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    {# Load jQuery #}
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    {{ form.media.js }}
+{% endblock %}

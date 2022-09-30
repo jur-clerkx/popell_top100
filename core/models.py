@@ -5,6 +5,7 @@ from django.db import models, transaction
 from django.db.models import Count, Sum
 
 from core.spotify import spotify
+from core.templatetags.core_extras import artist_list
 
 
 class HitList(models.Model):
@@ -132,8 +133,23 @@ class Track(models.Model):
         track.artists.add(artist)
         return track
 
+    @staticmethod
+    @transaction.atomic
+    def merge_tracks(from_id, to_id):
+        """Merges all the votes from the from track to the to track and deletes the from track."""
+        from_track = Track.objects.get(id=from_id)
+        to_track = Track.objects.get(id=to_id)
+        votes = Vote.objects.filter(track=from_track)
+        for vote in votes:
+            vote.track = to_track
+            vote.save()
+        from_track.delete()
+
     def __str__(self):
-        return self.title
+        result = self.title + " - " + artist_list(self.artists.all())
+        if self.is_non_spotify:
+            result += " (Non Spotify)"
+        return result
 
 
 class VoteSubmission(models.Model):

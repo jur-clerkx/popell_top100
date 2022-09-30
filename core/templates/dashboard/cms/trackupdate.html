@@ -1,0 +1,21 @@
+{% extends 'dashboard/base.html' %}
+{% load crispy_forms_filters %}
+{% block title %}
+    <h1>{{ self.object.name }} bewerken</h1>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <form method="post">
+            {% csrf_token %}
+            <div class="card-body">
+                {{ form | crispy }}
+            </div>
+            <div class="card-footer text-end">
+                <div class="d-flex">
+                    <a href="{% url "core:custom-track-list" %}" class="btn btn-link">Annuleren</a>
+                    <button type="submit" class="btn btn-primary ms-auto">Aanpassen</button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

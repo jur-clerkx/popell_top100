@@ -16,8 +16,8 @@ from django.views.generic import (
 )
 from django.utils.translation import activate
 
-from core.forms import VoteSubmissionForm, CustomTrackForm
-from core.models import VoteSubmission, HitList
+from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
+from core.models import VoteSubmission, HitList, Track
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
 
@@ -168,3 +168,40 @@ class HitListDeleteView(LoginRequiredMixin, DeleteView):
     model = HitList
     success_url = reverse_lazy("core:hitlist-list")
     template_name = "dashboard/cms/hitlistdelete.html"
+
+
+class CustomTrackListView(LoginRequiredMixin, ListView):
+    model = Track
+    template_name = "dashboard/cms/tracklist.html"
+
+    def get_queryset(self):
+        return (
+            super()
+            .get_queryset()
+            .prefetch_related("artists")
+            .filter(is_non_spotify=True)
+        )
+
+
+class CustomTrackUpdateView(LoginRequiredMixin, UpdateView):
+    model = Track
+    template_name = "dashboard/cms/trackupdate.html"
+    fields = ["title", "artists", "preview_url", "image_url"]
+    success_url = reverse_lazy("core:custom-track-list")
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields["artists"].queryset = form.fields[
+            "artists"
+        ].queryset.filter(is_non_spotify=True)
+        return form
+
+
+class MergeTracksView(LoginRequiredMixin, FormView):
+    form_class = MergeTracksForm
+    template_name = "dashboard/cms/mergetracks.html"
+    success_url = reverse_lazy("core:dashboard")
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

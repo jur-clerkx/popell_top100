@@ -56,6 +56,16 @@
                                    href="{{ hitlist_link }}">
                                     Top 100 lijsten
                                 </a>
+                                {% url 'core:custom-track-list' as customtracklist_link %}
+                                <a class="dropdown-item{% if request.path == customtracklist_link %} active{% endif %}"
+                                   href="{{ customtracklist_link }}">
+                                    Eigen nummers
+                                </a>
+                                {% url 'core:merge-tracks' as mergetracks_link %}
+                                <a class="dropdown-item{% if request.path == mergetracks_link %} active{% endif %}"
+                                   href="{{ mergetracks_link }}">
+                                    Nummers samenvoegen
+                                </a>
                             </div>
                         </li>
                     </ul>

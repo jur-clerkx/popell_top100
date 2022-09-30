@@ -1,0 +1,37 @@
+{% extends 'dashboard/base.html' %}
+{% load core_extras %}
+{% block title %}
+    <h1>Eigen nummers</h1>
+{% endblock %}
+{% block content %}
+    <div class="card">
+        <div class="table-responsive">
+            <table class="table table-vcenter table-mobile-md card-table">
+                <tr>
+                    <th>Titel</th>
+                    <th>Artiest</th>
+                    <th>Preview URL</th>
+                    <th>Afbeelding URL</th>
+                    <th>Acties</th>
+                </tr>
+                {% for object in object_list %}
+                    <tr>
+                        <td>{{ object.title }}</td>
+                        <td>{{ object.artists.all | artist_list }}</td>
+                        <td>{{ object.preview_url }}</td>
+                        <td>{{ object.image_url }}</td>
+                        <td>
+                            <a href="{% url 'core:custom-track-update' object.id %}" class="btn btn-warning">Bewerken</a>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <h3>Nog geen eigen nummers aangemaakt</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock %}

@@ -1,6 +1,7 @@
 from django import forms
 
 from core.models import VoteSubmission, Track
+from core.widgets import TrackSelectWidget
 
 
 class VoteSubmissionForm(forms.Form):
@@ -23,7 +24,7 @@ class VoteSubmissionForm(forms.Form):
             raise forms.ValidationError(
                 "U kunt niet 2 of meerder keren op hetzelfde nummer stemmen."
             )
-        return super().clean()
+        return cleaned_data
 
     def save(self):
         cleaned_data = super().clean()
@@ -45,4 +46,31 @@ class CustomTrackForm(forms.Form):
         cleaned_data = super().clean()
         return Track.create_custom_track(
             cleaned_data["title"], cleaned_data["artist"]
+        )
+
+
+class MergeTracksForm(forms.Form):
+    merge_from = forms.ModelChoiceField(
+        Track.objects.all().order_by("title").prefetch_related("artists"),
+        required=True,
+        widget=TrackSelectWidget(),
+    )
+    merge_to = forms.ModelChoiceField(
+        Track.objects.all().order_by("title").prefetch_related("artists"),
+        required=True,
+        widget=TrackSelectWidget(),
+    )
+
+    def clean(self):
+        cleaned_data = super().clean()
+        if cleaned_data["merge_from"] == cleaned_data["merge_to"]:
+            raise forms.ValidationError(
+                "Selecteer 2 verschillende nummers om samen te voegen!"
+            )
+        return cleaned_data
+
+    def save(self):
+        cleaned_data = super().clean()
+        Track.merge_tracks(
+            cleaned_data["merge_from"].id, cleaned_data["merge_to"].id
         )

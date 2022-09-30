@@ -49,4 +49,19 @@ urlpatterns = [
         views.HitListDeleteView.as_view(),
         name="hitlist-delete",
     ),
+    path(
+        "dashboard/cms/custom-track",
+        views.CustomTrackListView.as_view(),
+        name="custom-track-list",
+    ),
+    path(
+        "dashboard/cms/custom-track/update/<str:pk>",
+        views.CustomTrackUpdateView.as_view(),
+        name="custom-track-update",
+    ),
+    path(
+        "dashboard/cms/merge-tracks",
+        views.MergeTracksView.as_view(),
+        name="merge-tracks",
+    ),
 ]
