@@ -64,4 +64,9 @@ urlpatterns = [
         views.MergeTracksView.as_view(),
         name="merge-tracks",
     ),
+    path(
+        "dashboard/cms/toggle-submission-invalidation/<str:votesubmissionid>",
+        views.ToggleSubmissionInvalidation.as_view(),
+        name="toggle-submission-invalidation",
+    ),
 ]

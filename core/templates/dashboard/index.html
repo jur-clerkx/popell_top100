@@ -72,7 +72,11 @@
                 {% for vote in hitlist.votesubmission_set.all %}
                     {% with vote.vote_set.all as votes %}
                         <tr>
-                            <td>{{ vote.is_invalidated|yesno:"Ja,Nee" }}</td>
+                            <td>
+                                <a href="{% url 'core:toggle-submission-invalidation' vote.id %}">
+                                    {{ vote.is_invalidated|yesno:"Ja,Nee" }}
+                                </a>
+                            </td>
                             <td>{{ vote.submitter_name }}</td>
                             <td>{{ vote.timestamp }}</td>
                             <td>{{ votes.0.track }}</td>

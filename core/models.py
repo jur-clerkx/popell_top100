@@ -30,7 +30,10 @@ class HitList(models.Model):
 
     def get_list(self):
         return (
-            Track.objects.filter(vote__submission__hit_list=self)
+            Track.objects.filter(
+                vote__submission__hit_list=self,
+                vote__submission__is_invalidated=False,
+            )
             .annotate(votes=Count("vote__points"), score=Sum("vote__points"))
             .order_by("-score", "-votes")
             .prefetch_related("artists")

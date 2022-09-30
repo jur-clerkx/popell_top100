@@ -1,7 +1,7 @@
 from dataclasses import asdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -205,3 +205,11 @@ class MergeTracksView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
+
+
+class ToggleSubmissionInvalidation(LoginRequiredMixin, View):
+    def get(self, request, votesubmissionid, *args, **kwargs):
+        submission = VoteSubmission.objects.get(id=votesubmissionid)
+        submission.is_invalidated = not submission.is_invalidated
+        submission.save()
+        return redirect(reverse_lazy("core:dashboard"))
