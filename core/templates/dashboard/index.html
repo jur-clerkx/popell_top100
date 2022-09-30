@@ -69,7 +69,7 @@
                     <th>#4</th>
                     <th>#5</th>
                 </tr>
-                {% for vote in hitlist.votesubmission_set.all %}
+                {% for vote in hitlist.votesubmission_set.all|dictsortreversed:"timestamp" %}
                     {% with vote.vote_set.all as votes %}
                         <tr>
                             <td>
