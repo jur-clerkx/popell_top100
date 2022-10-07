@@ -36,7 +36,7 @@
                     <th>Stemmen</th>
                 </tr>
                 {% for track in hitlist.get_list %}
-                    <tr>
+                    <tr{% if track.is_non_spotify %} class="bg-danger-lt"{% endif %}>
                         <td>{{ forloop.counter }}</td>
                         <td>{{ track.title }}</td>
                         <td>{{ track.artists.all | artist_list }}</td>
@@ -56,7 +56,7 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            <h4>Stemmen voor {{ hitlist.name }}</h4>
+            <h4>Stemmen voor {{ hitlist.name }} ({{ hitlist.votesubmission_set.all.count }} stemmen)</h4>
         </div>
         <div class="table-responsive">
             <table class="table card-table table-vcenter text-nowrap datatable">
