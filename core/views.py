@@ -213,3 +213,10 @@ class ToggleSubmissionInvalidation(LoginRequiredMixin, View):
         submission.is_invalidated = not submission.is_invalidated
         submission.save()
         return redirect(reverse_lazy("core:dashboard"))
+
+
+class HitListCreateSpotifyPlaylistView(View):
+    def get(self, request, hitlist_id, *args, **kwargs):
+        hitlist = get_object_or_404(HitList, id=hitlist_id)
+        hitlist.create_spotify_list()
+        return redirect(reverse_lazy("core:dashboard"))

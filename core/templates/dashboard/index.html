@@ -16,6 +16,7 @@
     <label for="hitlistSelect">
         <p>Selecteer lijst voor overzicht:</p>
     </label>
+    <a href="{% url 'core:create-spotify-playlist' hitlist.id %}" class="btn btn-primary">Maak spotify afspeellijst</a>
     <select class="form-select" id="hitlistSelect" onchange="changeHitlist()">
         {% for item in hitlists %}
             <option{% if item == hitlist %} selected{% endif %} value="{{ item.id }}">{{ item.name }}</option>

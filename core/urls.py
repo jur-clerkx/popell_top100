@@ -69,4 +69,9 @@ urlpatterns = [
         views.ToggleSubmissionInvalidation.as_view(),
         name="toggle-submission-invalidation",
     ),
+    path(
+        "dashboard/create-spotify-playlist/<str:hitlist_id>",
+        views.HitListCreateSpotifyPlaylistView.as_view(),
+        name="create-spotify-playlist",
+    ),
 ]

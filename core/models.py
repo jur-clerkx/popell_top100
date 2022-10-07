@@ -28,6 +28,9 @@ class HitList(models.Model):
         else:
             return None
 
+    def create_spotify_list(self):
+        spotify.create_playlist(self.name, self.get_list())
+
     def get_list(self):
         return (
             Track.objects.filter(
