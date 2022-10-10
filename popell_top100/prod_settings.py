@@ -5,7 +5,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "OPTIONS": {
             "service": "popell_top100",
-            "passfile": ".my_pgpass",
+#            "passfile": ".my_pgpass",
         },
     }
 }
