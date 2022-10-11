@@ -5,7 +5,6 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "popell_top100",
         "USER": "postgres",
-        "PORT": "5432",
     }
 }
 
