@@ -3,10 +3,10 @@ from .settings import *
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "OPTIONS": {
-            "service": "popell_top100",
-            "passfile": ".my_pgpass",
-        },
+        "NAME": "popell_top100",
+        "USER": "postgres",
+        "HOST": "localhost",
+        "PORT": "5432",
     }
 }
 
