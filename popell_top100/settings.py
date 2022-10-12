@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-#    "debug_toolbar",
+    #    "debug_toolbar",
     "django_select2",
     "crispy_forms",
     "crispy_bootstrap5",
@@ -47,7 +47,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
- #   "debug_toolbar.middleware.DebugToolbarMiddleware",
+    #   "debug_toolbar.middleware.DebugToolbarMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -128,6 +128,8 @@ USE_TZ = False
 
 STATIC_URL = "static/"
 
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
 STATICFILES_DIRS = (BASE_DIR / "static",)
 
 # Default primary key field type
@@ -138,7 +140,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Django Crispy Forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-
 
 # Sentry setup
 sentry_sdk.init(
