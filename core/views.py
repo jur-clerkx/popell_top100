@@ -15,11 +15,14 @@ from django.views.generic import (
     FormView,
 )
 from django.utils.translation import activate
+import logging
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
 from core.models import VoteSubmission, HitList, Track
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
+
+logger = logging.getLogger(__name__)
 
 
 class OpenHitListRequiredMixin:
@@ -218,5 +221,25 @@ class ToggleSubmissionInvalidation(LoginRequiredMixin, View):
 class HitListCreateSpotifyPlaylistView(View):
     def get(self, request, hitlist_id, *args, **kwargs):
         hitlist = get_object_or_404(HitList, id=hitlist_id)
-        hitlist.create_spotify_list()
+        try:
+            hitlist.create_spotify_list(request.session.get("spotify_token"))
+        except Exception as e:
+            logger.error("Failed to create spotify playlist!")
+            logger.error(e)
+            request.session["spotify_token"] = None
         return redirect(reverse_lazy("core:dashboard"))
+
+
+class SpotifyOAuthView(View):
+    def get(self, request):
+        spotify_oauth = spotify.get_spotify_oauth()
+        callback_code = request.GET.get("code", None)
+        if callback_code:
+            # Found callback code, add access token to session
+            access_token = spotify_oauth.get_access_token(callback_code)[
+                "access_token"
+            ]
+            request.session["spotify_token"] = access_token
+            return redirect(reverse_lazy("core:dashboard"))
+        else:
+            return redirect(spotify_oauth.get_authorize_url())

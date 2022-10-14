@@ -28,8 +28,8 @@ class HitList(models.Model):
         else:
             return None
 
-    def create_spotify_list(self):
-        spotify.create_playlist(self.name, self.get_list())
+    def create_spotify_list(self, access_token):
+        spotify.create_playlist(self.name, self.get_list(), access_token)
 
     def get_list(self):
         return (

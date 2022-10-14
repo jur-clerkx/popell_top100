@@ -14,8 +14,12 @@ def get_client():
     return Spotify(client_credentials_manager=spotipy_credentials)
 
 
-def get_user_client():
-    return Spotify(auth_manager=SpotifyOAuth(scope="playlist-modify-private"))
+def get_spotify_oauth():
+    return SpotifyOAuth(scope="playlist-modify-private")
+
+
+def get_user_client(access_token):
+    return Spotify(access_token)
 
 
 def search_tracks(q):
@@ -59,8 +63,8 @@ def get_artist_by_uri(uri):
     return Artist.from_json(artist)
 
 
-def create_playlist(name, tracks):
-    spotify = get_user_client()
+def create_playlist(name, tracks, access_token):
+    spotify = get_user_client(access_token)
     user_id = spotify.current_user()["id"]
     playlist_id = spotify.user_playlist_create(user_id, name, public=False)[
         "id"

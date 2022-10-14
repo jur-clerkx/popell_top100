@@ -74,4 +74,9 @@ urlpatterns = [
         views.HitListCreateSpotifyPlaylistView.as_view(),
         name="create-spotify-playlist",
     ),
+    path(
+        "dashboard/spotify-oauth",
+        views.SpotifyOAuthView.as_view(),
+        name="spotify-oauth",
+    ),
 ]
