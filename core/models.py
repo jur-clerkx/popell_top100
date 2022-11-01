@@ -16,6 +16,7 @@ class HitList(models.Model):
     vote_start_date = models.DateTimeField(blank=False, null=False)
     vote_end_date = models.DateTimeField(blank=False, null=False)
     is_closed = models.BooleanField(default=False)
+    description = models.TextField(blank=False, null=False, default="")
 
     @staticmethod
     def get_current_hitlist():

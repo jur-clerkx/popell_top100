@@ -5,7 +5,7 @@
 {% block head %}
     <link href="{% static 'css/vote_submission.css' %}" rel="stylesheet">
     <meta property="og:url" content="{{ request.path }}"/>
-    <meta property="og:title" content="Mijn Bachelorclub Top 100 Inzending"/>
+    <meta property="og:title" content="Mijn {{ object.hit_list.name }} Inzending"/>
     <meta property="og:description" content="Bekijk de inzending van {{ object.submitter_name }}!"/>
     <meta property="og:image" content="{% static 'img/popell_background.webp' %}"/>
 {% endblock %}

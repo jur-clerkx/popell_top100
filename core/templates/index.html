@@ -2,6 +2,6 @@
 {% block title %}{{ hitlist.name }}{% endblock %}
 {% block content %}
     <h1>{{ hitlist.name }}</h1>
-    <p>Dit is de intro tekst, heel verhaal enzo. Spannend joh</p>
+    {{ hitlist.description | safe }}
     <a href="{% url 'core:vote' %}" class="btn btn-popell">Open stem formulier</a>
 {% endblock %}

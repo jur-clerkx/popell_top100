@@ -17,6 +17,8 @@ from django.views.generic import (
 from django.utils.translation import activate
 import logging
 
+from tinymce.widgets import TinyMCE
+
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
 from core.models import VoteSubmission, HitList, Track
 from core.spotify import spotify
@@ -144,26 +146,34 @@ class HistListListView(LoginRequiredMixin, ListView):
 class HitListCreateView(LoginRequiredMixin, CreateView):
     model = HitList
     template_name = "dashboard/cms/hitlistcreate.html"
-    fields = ["name", "vote_start_date", "vote_end_date"]
+    fields = ["name", "vote_start_date", "vote_end_date", "description"]
     success_url = reverse_lazy("core:hitlist-list")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["vote_start_date"].widget = CustomDateTimeInput()
         form.fields["vote_end_date"].widget = CustomDateTimeInput()
+        form.fields["description"].widget = TinyMCE()
         return form
 
 
 class HitListUpdateView(LoginRequiredMixin, UpdateView):
     model = HitList
     template_name = "dashboard/cms/hitlistupdate.html"
-    fields = ["name", "vote_start_date", "vote_end_date", "is_closed"]
+    fields = [
+        "name",
+        "vote_start_date",
+        "vote_end_date",
+        "description",
+        "is_closed",
+    ]
     success_url = reverse_lazy("core:hitlist-list")
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
         form.fields["vote_start_date"].widget = CustomDateTimeInput()
         form.fields["vote_end_date"].widget = CustomDateTimeInput()
+        form.fields["description"].widget = TinyMCE()
         return form
 
 

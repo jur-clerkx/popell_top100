@@ -21,7 +21,7 @@ from django.urls import path, include
 urlpatterns = [
     path("", include("core.urls")),
     path("admin/", admin.site.urls),
-#    path("__debug__/", include("debug_toolbar.urls")),
     path("select2/", include("django_select2.urls")),
+    path("tinymce/", include("tinymce.urls")),
     path("accounts/login/", LoginView.as_view()),
 ]
