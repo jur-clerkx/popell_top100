@@ -12,6 +12,7 @@ crispy_bootstrap5 = "*"
 sentry-sdk = "*"
 psycopg2 = "*"
 django-tinymce = "*"
+djangorestframework = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"

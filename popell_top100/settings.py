@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django_select2",
     "crispy_forms",
     "crispy_bootstrap5",
+    "rest_framework",
     "tinymce",
     "core",
 ]
@@ -155,3 +156,12 @@ sentry_sdk.init(
     send_default_pii=True,
     environment=os.getenv("TOP100_ENV", "local"),
 )
+
+# Django Rest Framework
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}
