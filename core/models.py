@@ -29,6 +29,10 @@ class HitList(models.Model):
         else:
             return None
 
+    @staticmethod
+    def get_by_year(year: int) -> "HitList":
+        return HitList.objects.filter(vote_start_date__year=year).first()
+
     def create_spotify_list(self, access_token):
         spotify.create_playlist(self.name, self.get_list(), access_token)
 

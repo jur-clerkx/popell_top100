@@ -28,6 +28,9 @@ urlpatterns = [
         views.SpotipyGetView.as_view(),
         name="api-get",
     ),
+    path(
+        "api/stats/", views.TrackStatsGetView.as_view(), name="api-track-stats"
+    ),
     path("dashboard/", views.DashboardView.as_view(), name="dashboard"),
     path(
         "dashboard/cms/hitlist",

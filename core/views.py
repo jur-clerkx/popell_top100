@@ -1,6 +1,7 @@
 from dataclasses import asdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, Sum
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
@@ -20,7 +21,7 @@ import logging
 from tinymce.widgets import TinyMCE
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
-from core.models import VoteSubmission, HitList, Track
+from core.models import VoteSubmission, HitList, Track, Vote
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
 
@@ -118,6 +119,31 @@ class SpotipySearchView(View):
 class SpotipyGetView(View):
     def get(self, request, spotifyuri, *args, **kwargs):
         return JsonResponse(asdict(spotify.get_track_by_uri(spotifyuri)))
+
+
+class TrackStatsGetView(View):
+    def get(self, request, *args, **kwargs):
+        url = request.GET.get("spotify_uri", "")
+        year = request.GET.get("year", "")
+        hitlist = HitList.get_by_year(year)
+        print(hitlist)
+        track = Track.objects.get(spotify_uri=url)
+        votes = Vote.objects.filter(track=track, submission__hit_list=hitlist)
+        vote_count, points = 0, 0
+        for vote in votes:
+            vote_count += 1
+            points += vote.points
+        votes = VoteSubmission.objects.filter(
+            hit_list=hitlist, vote__track=track, is_invalidated=False
+        ).values("submitter_name")
+        return JsonResponse(
+            {
+                "track": str(track),
+                "points": points,
+                "number_of_votes": vote_count,
+                "voters": list(votes),
+            }
+        )
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
