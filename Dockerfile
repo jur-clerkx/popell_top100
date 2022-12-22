@@ -12,5 +12,4 @@ RUN python3 manage.py collectstatic --noinput
 
 EXPOSE 8000
 STOPSIGNAL SIGINT
-ENTRYPOINT ["python", "manage.py"]
-CMD ["runserver", "0.0.0.0:8000", "--insecure"]
+CMD ["sh", "startup.sh"]
