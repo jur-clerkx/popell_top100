@@ -13,6 +13,7 @@ sentry-sdk = "*"
 psycopg2 = "*"
 django-tinymce = "*"
 djangorestframework = "*"
+django-cors-headers = "~=3.13"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
