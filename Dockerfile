@@ -8,7 +8,6 @@ WORKDIR /project
 COPY . /project/
 RUN pip3 install -U pipenv
 RUN pipenv install --system
-RUN python3 manage.py collectstatic --noinput
 
 EXPOSE 8000
 STOPSIGNAL SIGINT
