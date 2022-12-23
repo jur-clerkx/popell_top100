@@ -73,4 +73,5 @@ def create_playlist(name, tracks, access_token):
     for track in tracks:
         if not track.is_non_spotify:
             track_ids.append(track.spotify_uri)
-    spotify.playlist_add_items(playlist_id, track_ids)
+    for x in range(0, len(track_ids), 100):
+        spotify.playlist_add_items(playlist_id, track_ids[x : x + 100])
