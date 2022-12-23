@@ -64,7 +64,7 @@
 
     <div class="card mt-4">
         <div class="card-header">
-            <h4>Stemmen voor {{ hitlist.name }} ({{ hitlist.votesubmission_set.all.count }} stemmen)</h4>
+            <h4>Stemmen voor {{ hitlist.name }} ({{vote_count}} geldige stemmen, {{ invalidated }} ongeldig)</h4>
         </div>
         <div class="table-responsive">
             <table class="table card-table table-vcenter text-nowrap datatable">

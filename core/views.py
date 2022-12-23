@@ -161,6 +161,12 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         else:
             ctx["hitlist"] = HitList.get_current_hitlist()
         ctx["hitlists"] = HitList.objects.all()
+        ctx["vote_count"] = VoteSubmission.objects.filter(
+            hit_list=ctx["hitlist"], is_invalidated=False
+        ).count()
+        ctx["invalidated"] = VoteSubmission.objects.filter(
+            hit_list=ctx["hitlist"], is_invalidated=True
+        ).count()
         return ctx
 
 
