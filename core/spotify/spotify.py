@@ -75,3 +75,4 @@ def create_playlist(name, tracks, access_token):
             track_ids.append(track.spotify_uri)
     for x in range(0, len(track_ids), 100):
         spotify.playlist_add_items(playlist_id, track_ids[x : x + 100])
+        print("Export spotify batch")
