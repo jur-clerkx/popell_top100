@@ -68,7 +68,11 @@ class Artist(models.Model):
         try:
             return Artist.objects.get(spotify_uri=artist_uri)
         except models.ObjectDoesNotExist:  # Create artist in the database
+            # Check for similar name
             artist_json = spotify.get_artist_by_uri(artist_uri)
+            same_artist = Artist.objects.filter(name=artist_json.name).first()
+            if same_artist:
+                return same_artist
             artist = Artist(
                 name=artist_json.name,
                 spotify_uri=artist_json.id,
