@@ -76,3 +76,15 @@ def create_playlist(name, tracks, access_token):
     for x in range(0, len(track_ids), 100):
         spotify.playlist_add_items(playlist_id, track_ids[x : x + 100])
         print("Export spotify batch")
+
+    playlist_id = spotify.user_playlist_create(
+        user_id, name + "_reversed", public=False
+    )["id"]
+    track_ids = []
+    for track in tracks:
+        if not track.is_non_spotify:
+            track_ids.append(track.spotify_uri)
+    track_ids.reverse()
+    for x in range(0, len(track_ids), 100):
+        spotify.playlist_add_items(playlist_id, track_ids[x : x + 100])
+        print("Export spotify batch")
