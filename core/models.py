@@ -84,6 +84,9 @@ class Artist(models.Model):
 
     @staticmethod
     def create_custom_artist(name):
+        existing = Artist.objects.filter(name=name).first()
+        if existing:
+            return existing
         artist = Artist(name=name, is_non_spotify=True)
         artist.save()
         return artist
