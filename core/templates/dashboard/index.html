@@ -106,4 +106,71 @@
         </div>
     </div>
 
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Stemmen voor {{ hitlist.name }} ({{vote_count}} geldige stemmen, {{ invalidated }} ongeldig)</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+                <tr>
+                    <th>Ongeldig?</th>
+                    <th>Door</th>
+                    <th>Tijd</th>
+                    <th>#1</th>
+                    <th>#2</th>
+                    <th>#3</th>
+                    <th>#4</th>
+                    <th>#5</th>
+                </tr>
+                {% for vote in hitlist.votesubmission_set.all|dictsortreversed:"timestamp" %}
+                    {% with vote.vote_set.all as votes %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'core:toggle-submission-invalidation' vote.id %}">
+                                    {{ vote.is_invalidated|yesno:"Ja,Nee" }}
+                                </a>
+                            </td>
+                            <td>{{ vote.submitter_name }}</td>
+                            <td>{{ vote.timestamp }}</td>
+                            <td>{{ votes.0.track }}</td>
+                            <td>{{ votes.1.track }}</td>
+                            <td>{{ votes.2.track }}</td>
+                            <td>{{ votes.3.track }}</td>
+                            <td>{{ votes.4.track }}</td>
+                        </tr>
+                    {% endwith %}
+                {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <h3>Nog stemmen binnen</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <h4>Stem namen</h4>
+        </div>
+        <div class="table-responsive">
+            <table class="table card-table table-vcenter text-nowrap datatable">
+                {% for vote in hitlist.votesubmission_set.all %}
+                    {% if not vote.is_invalidated %}
+                        <tr>
+                            <td>{{ vote.submitter_name }}</td>
+                        </tr>
+                    {% endif %}
+                {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <h3>Nog stemmen binnen</h3>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
