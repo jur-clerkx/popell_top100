@@ -123,11 +123,10 @@ class SpotipyGetView(View):
 
 class TrackStatsGetView(View):
     def get(self, request, *args, **kwargs):
-        url = request.GET.get("spotify_uri", "")
+        title = request.GET.get("title", "")
         year = request.GET.get("year", "")
         hitlist = HitList.get_by_year(year)
-        print(hitlist)
-        track = Track.objects.get(spotify_uri=url)
+        track = Track.objects.filter(title=title).first()
         votes = Vote.objects.filter(track=track, submission__hit_list=hitlist)
         vote_count, points = 0, 0
         for vote in votes:
