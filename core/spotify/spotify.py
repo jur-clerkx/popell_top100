@@ -65,7 +65,9 @@ def get_artist_by_uri(uri):
 
 def create_playlist(name, tracks, access_token):
     spotify = get_user_client(access_token)
-    user_id = spotify.current_user()["id"]
+    user = spotify.current_user()
+    print(user)
+    user_id = user["id"]
     playlist_id = spotify.user_playlist_create(user_id, name, public=False)[
         "id"
     ]
