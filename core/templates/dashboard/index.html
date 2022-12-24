@@ -16,7 +16,7 @@
     <label for="hitlistSelect">
         <p>Selecteer lijst voor overzicht:</p>
     </label>
-    {% if request.session.spotify_token %}
+    {% if request.session.spotify_token and hitlist %}
         <a href="{% url 'core:create-spotify-playlist' hitlist.id %}" class="btn btn-primary">
             Maak spotify afspeellijst
         </a>
