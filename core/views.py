@@ -128,6 +128,11 @@ class TrackStatsGetView(View):
         hitlist = HitList.get_by_year(year)
         track = Track.objects.filter(title=title).first()
         votes = Vote.objects.filter(track=track, submission__hit_list=hitlist)
+        position = 1
+        for entry in hitlist.get_list():
+            if entry.id == track.id:
+                break
+            position += 1
         vote_count, points = 0, 0
         for vote in votes:
             vote_count += 1
@@ -138,6 +143,7 @@ class TrackStatsGetView(View):
         return JsonResponse(
             {
                 "track": str(track),
+                "position": position,
                 "points": points,
                 "number_of_votes": vote_count,
                 "voters": list(votes),
