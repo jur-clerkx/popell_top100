@@ -1,8 +1,7 @@
 from dataclasses import asdict
 
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.db.models import Count, Sum
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.views import View
@@ -21,16 +20,19 @@ import logging
 from tinymce.widgets import TinyMCE
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
-from core.models import VoteSubmission, HitList, Track, Vote
+from core.models.voting import VoteSubmission, HitList, Vote
+from core.models.tracks import Track
+from core.services.settings import SettingsService
+from core.services.voting import HitListService
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput
 
 logger = logging.getLogger(__name__)
 
 
-class OpenHitListRequiredMixin:
+class OpenHitListRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
-        if not HitList.get_current_hitlist():
+        if not SettingsService.get_current_hitlist().is_closed:
             return redirect("core:closed")
         return super().dispatch(request, *args, **kwargs)
 
@@ -40,7 +42,7 @@ class IndexView(OpenHitListRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["hitlist"] = HitList.get_current_hitlist()
+        context["hitlist"] = SettingsService.get_current_hitlist()
         return context
 
 
@@ -57,7 +59,7 @@ class VoteView(OpenHitListRequiredMixin, View):
             self.template_name,
             {
                 "voteForm": VoteSubmissionForm(),
-                "hitlist": HitList.get_current_hitlist(),
+                "hitlist": SettingsService.get_current_hitlist(),
             },
         )
 
@@ -77,7 +79,10 @@ class VoteView(OpenHitListRequiredMixin, View):
         return render(
             request,
             self.template_name,
-            {"voteForm": form, "hitlist": HitList.get_current_hitlist()},
+            {
+                "voteForm": form,
+                "hitlist": SettingsService.get_current_hitlist(),
+            },
         )
 
 
@@ -125,7 +130,7 @@ class TrackStatsGetView(View):
     def get(self, request, *args, **kwargs):
         title = request.GET.get("title", "")
         year = request.GET.get("year", "")
-        hitlist = HitList.get_by_year(year)
+        hitlist = HitListService.get_by_year(year)
         track = Track.objects.filter(title=title).first()
         votes = Vote.objects.filter(track=track, submission__hit_list=hitlist)
         position = 1
@@ -156,16 +161,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
-
-        arg = self.request.GET.get("list", None)
-        if arg:
-            try:
-                ctx["hitlist"] = HitList.objects.get(pk=arg)
-            except Exception:
-                ctx["hitlist"] = HitList.get_current_hitlist()
-        else:
-            ctx["hitlist"] = HitList.get_current_hitlist()
         ctx["hitlists"] = HitList.objects.all()
+        ctx["hitlist"] = SettingsService.get_current_hitlist()
         ctx["vote_count"] = VoteSubmission.objects.filter(
             hit_list=ctx["hitlist"], is_invalidated=False
         ).count()
@@ -269,7 +266,9 @@ class HitListCreateSpotifyPlaylistView(View):
     def get(self, request, hitlist_id, *args, **kwargs):
         hitlist = get_object_or_404(HitList, id=hitlist_id)
         try:
-            hitlist.create_spotify_list(request.session.get("spotify_token"))
+            HitListService.create_spotify_list(
+                hitlist, request.session.get("spotify_token")
+            )
         except Exception as e:
             logger.error("Failed to create spotify playlist!")
             logger.error(e)

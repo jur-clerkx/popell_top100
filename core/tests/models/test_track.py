@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from core.models import Track
+from core.models.tracks import Track
 
 
 class TrackTests(TestCase):

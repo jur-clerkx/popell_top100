@@ -1,7 +1,8 @@
 from django.test import TestCase
 from datetime import datetime, timedelta
 
-from core.models import VoteSubmission, HitList, Track, Vote
+from core.models.voting import VoteSubmission, HitList, Vote
+from core.models.tracks import Track
 
 
 def setup_hitlist():

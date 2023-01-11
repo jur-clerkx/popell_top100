@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from core.models import Track, Artist
+from core.models.tracks import Artist
 
 
 class ArtistTests(TestCase):

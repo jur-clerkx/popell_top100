@@ -1,6 +1,9 @@
 from django import forms
 
-from core.models import VoteSubmission, Track
+from core.models.voting import VoteSubmission
+from core.models.tracks import Track
+from core.services.tracks import TrackService
+from core.services.voting import VoteSubmissionService
 from core.widgets import TrackSelectWidget
 
 
@@ -28,7 +31,7 @@ class VoteSubmissionForm(forms.Form):
 
     def save(self):
         cleaned_data = super().clean()
-        return VoteSubmission.create_vote_submission(
+        return VoteSubmissionService.create_vote_submission(
             cleaned_data.get("name"),
             cleaned_data.get("song_1"),
             cleaned_data.get("song_2"),
@@ -44,7 +47,7 @@ class CustomTrackForm(forms.Form):
 
     def save(self):
         cleaned_data = super().clean()
-        return Track.create_custom_track(
+        return TrackService.create_custom_track(
             cleaned_data["title"], cleaned_data["artist"]
         )
 
@@ -71,6 +74,6 @@ class MergeTracksForm(forms.Form):
 
     def save(self):
         cleaned_data = super().clean()
-        Track.merge_tracks(
+        TrackService.merge_tracks(
             cleaned_data["merge_from"].id, cleaned_data["merge_to"].id
         )

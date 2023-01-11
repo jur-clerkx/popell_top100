@@ -15,7 +15,7 @@ def get_client():
 
 
 def get_spotify_oauth():
-    return SpotifyOAuth(scope="playlist-modify-private")
+    return SpotifyOAuth(scope="playlist-modify-private", show_dialog=True)
 
 
 def get_user_client(access_token):
