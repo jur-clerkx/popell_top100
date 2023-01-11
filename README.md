@@ -57,7 +57,7 @@ Production doesn't use SQLite but PostgresSQL. The following configurations are 
 - In the working directory, create the `.pg_service.conf` file with the following contents:
   ```properties
   [popell_top100]
-  host=<db_host>
+  host=<db_host>asdf
   user=<db_username>
   dbname=<db_name>
   port=<db_port>
