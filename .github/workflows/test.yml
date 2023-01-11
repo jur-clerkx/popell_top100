@@ -25,7 +25,7 @@ jobs:
       # manually if/when you want to upgrade Poetry, or if something goes wrong. This could be
       # mildly cleaner by using an environment variable, but I don't really care.
       - name: cache poetry install
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: ~/.local
           key: poetry-1.1.12-0
@@ -50,7 +50,7 @@ jobs:
       # them in the cache key. I'm not, so it can be simple and just depend on the poetry.lock.
       - name: cache deps
         id: cache-deps
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: pydeps-${{ hashFiles('**/poetry.lock') }}
@@ -58,7 +58,7 @@ jobs:
       # Install dependencies. `--no-root` means "install all dependencies but not the project
       # itself", which is what you want to avoid caching _your_ code. The `if` statement
       # ensures this only runs on a cache miss.
-      - run: poetry install --no-interaction --no-root
+      - run: poetry install --dev --no-interaction --no-root
         if: steps.cache-deps.outputs.cache-hit != 'true'
 
       # Now install _your_ project. This isn't necessary for many types of projects -- particularly
