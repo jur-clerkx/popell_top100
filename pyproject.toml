@@ -22,9 +22,3 @@ exclude = '''
   | dist
 )/
 '''
-
-[tool.poetry]
-name = "popell_top100"
-version = "0.1.0"
-description = "Small platform to count votes on spotify songs and create a top 100 playlist"
-authors = ["Jur Clerkx <jur.c@live.nl>"]
