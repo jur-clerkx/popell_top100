@@ -147,7 +147,6 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 
 def traces_sampler(sampling_context):
-    print(sampling_context)
     if (
         sampling_context.wsgi_environ
         and "FreshpingBot"
