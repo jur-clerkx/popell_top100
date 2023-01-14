@@ -145,16 +145,26 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 
+
+def traces_sampler(sampling_context):
+    print(sampling_context)
+    if (
+        sampling_context.wsgi_environ
+        and "FreshpingBot"
+        in sampling_context.wsgi_environ.get("HTTP_USER_AGENT")
+    ):
+        return 0
+    else:
+        return 1
+
+
 # Sentry setup
 sentry_sdk.init(
     dsn="https://e02ce39d7b1e44d29335bad6efef50ba@o4503930393395200.ingest.sentry.io/4503930396278784",
     integrations=[
         DjangoIntegration(),
     ],
-    # Set traces_sample_rate to 1.0 to capture 100%
-    # of transactions for performance monitoring.
-    # We recommend adjusting this value in production.
-    traces_sample_rate=1.0,
+    traces_sampler=traces_sampler,
     # If you wish to associate users to errors (assuming you are using
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
