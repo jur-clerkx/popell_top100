@@ -25,6 +25,7 @@ from core.models.tracks import Track
 from core.services.settings import SettingsService
 from core.services.voting import HitListService
 from core.spotify import spotify
+from core.urls import HITLIST_LIST, DASHBOARD
 from core.widgets import CustomDateTimeInput
 
 logger = logging.getLogger(__name__)
@@ -184,7 +185,7 @@ class HitListCreateView(LoginRequiredMixin, CreateView):
     model = HitList
     template_name = "dashboard/cms/hitlistcreate.html"
     fields = ["name", "vote_start_date", "vote_end_date", "description"]
-    success_url = reverse_lazy("core:hitlist-list")
+    success_url = reverse_lazy(HITLIST_LIST)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -204,7 +205,7 @@ class HitListUpdateView(LoginRequiredMixin, UpdateView):
         "description",
         "is_closed",
     ]
-    success_url = reverse_lazy("core:hitlist-list")
+    success_url = reverse_lazy(HITLIST_LIST)
 
     def get_form(self, form_class=None):
         form = super().get_form(form_class)
@@ -216,7 +217,7 @@ class HitListUpdateView(LoginRequiredMixin, UpdateView):
 
 class HitListDeleteView(LoginRequiredMixin, DeleteView):
     model = HitList
-    success_url = reverse_lazy("core:hitlist-list")
+    success_url = reverse_lazy(HITLIST_LIST)
     template_name = "dashboard/cms/hitlistdelete.html"
 
 
@@ -250,7 +251,7 @@ class CustomTrackUpdateView(LoginRequiredMixin, UpdateView):
 class MergeTracksView(LoginRequiredMixin, FormView):
     form_class = MergeTracksForm
     template_name = "dashboard/cms/mergetracks.html"
-    success_url = reverse_lazy("core:dashboard")
+    success_url = reverse_lazy(HITLIST_LIST)
 
     def form_valid(self, form):
         form.save()
@@ -262,7 +263,7 @@ class ToggleSubmissionInvalidation(LoginRequiredMixin, View):
         submission = VoteSubmission.objects.get(id=votesubmissionid)
         submission.is_invalidated = not submission.is_invalidated
         submission.save()
-        return redirect(reverse_lazy("core:dashboard"))
+        return redirect(reverse_lazy(DASHBOARD))
 
 
 class HitListCreateSpotifyPlaylistView(View):
@@ -276,7 +277,7 @@ class HitListCreateSpotifyPlaylistView(View):
             logger.error("Failed to create spotify playlist!")
             logger.error(e)
             request.session["spotify_token"] = None
-        return redirect(reverse_lazy("core:dashboard"))
+        return redirect(reverse_lazy(DASHBOARD))
 
 
 class SpotifyOAuthView(View):
@@ -289,6 +290,6 @@ class SpotifyOAuthView(View):
                 "access_token"
             ]
             request.session["spotify_token"] = access_token
-            return redirect(reverse_lazy("core:dashboard"))
+            return redirect(reverse_lazy(DASHBOARD))
         else:
             return redirect(spotify_oauth.get_authorize_url())
