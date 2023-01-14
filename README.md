@@ -1,6 +1,6 @@
 # PopEll Top100
 
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=popell-top100&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=popell-top100) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=popell-top100&metric=coverage)](https://sonarcloud.io/summary/new_code?id=popell-top100) [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 ### Built With
 
