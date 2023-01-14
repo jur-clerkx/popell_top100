@@ -32,7 +32,10 @@ logger = logging.getLogger(__name__)
 
 class OpenHitListRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
-        if not SettingsService.get_current_hitlist().is_closed:
+        if (
+            not HitListService.get_current_hitlist()
+            or HitListService.get_current_hitlist().is_closed
+        ):
             return redirect("core:closed")
         return super().dispatch(request, *args, **kwargs)
 
@@ -42,7 +45,7 @@ class IndexView(OpenHitListRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["hitlist"] = SettingsService.get_current_hitlist()
+        context["hitlist"] = HitListService.get_current_hitlist()
         return context
 
 

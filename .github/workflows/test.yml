@@ -36,4 +36,15 @@ jobs:
 
       - name: Run tests
         run: |
-          pipenv run python manage.py test
+          pipenv run coverage run --source="." manage.py test
+      
+
+      - name: Generate coverage xml
+        run: |
+          pipenv run coverage xml
+
+      - name: SonarCloud Scan
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

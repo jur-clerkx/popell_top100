@@ -20,7 +20,7 @@ django-debug-toolbar = "~=3.6"
 black = "~=22.8"
 pre-commit = "*"
 flake8 = "~=5.0"
-pytest = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"

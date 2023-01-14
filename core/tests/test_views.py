@@ -3,7 +3,7 @@ from django.test import TestCase, RequestFactory
 from django.urls import reverse
 from datetime import datetime, timedelta
 
-from core.models import HitList
+from core.models.voting import HitList
 from core.views import IndexView, VoteView
 
 
