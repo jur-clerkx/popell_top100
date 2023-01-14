@@ -2,6 +2,7 @@ import datetime
 
 from django.db import transaction
 
+from core.exceptions import NoOpenHitListException
 from core.models.voting import HitList, VoteSubmission, Vote
 from core.services.tracks import TrackService
 from core.spotify import spotify
@@ -16,6 +17,17 @@ class HitListService:
     def create_spotify_list(hitlist: HitList, access_token: str):
         spotify.create_playlist(hitlist.name, hitlist.get_list(), access_token)
 
+    @staticmethod
+    def get_current_hitlist():
+        return (
+            HitList.objects.filter(
+                vote_start_date__lte=datetime.datetime.now(),
+                vote_end_date__gte=datetime.datetime.now(),
+            )
+            .prefetch_related("votesubmission_set__vote_set__track__artists")
+            .first()
+        )
+
 
 class VoteSubmissionService:
     @staticmethod
@@ -25,7 +37,9 @@ class VoteSubmissionService:
     ):
         hitlist = HitListService.get_current_hitlist()
         if not hitlist:
-            raise Exception("Er is geen open hitlijst op dit moment!")
+            raise NoOpenHitListException(
+                "Er is geen open hitlijst op dit moment!"
+            )
         submission = VoteSubmission(submitter_name=name, hit_list=hitlist)
         submission.save()
         Vote.objects.create(

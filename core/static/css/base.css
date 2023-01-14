@@ -16,13 +16,13 @@ body {
 }
 
 .btn-popell {
-    --bs-btn-color: #white;
+    --bs-btn-color: white;
     --bs-btn-bg: rgba(0,0,0,0.7);
     --bs-btn-border-color: #FFED2D;
-    --bs-btn-hover-color: #white;
+    --bs-btn-hover-color: white;
     --bs-btn-hover-bg: rgba(40,40,40,1);
     --bs-btn-hover-border-color: #FFED2D;
-    --bs-btn-active-color: #white;
+    --bs-btn-active-color: white;
     --bs-btn-active-bg: rgba(0,0,0,0.7);
     --bs-btn-active-border-color: #FFED2D;
     --bs-btn-border-width: 2px;

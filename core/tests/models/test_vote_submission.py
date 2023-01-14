@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 
 from core.models.voting import VoteSubmission, HitList, Vote
 from core.models.tracks import Track
+from core.services.voting import VoteSubmissionService
 
 
 def setup_hitlist():
@@ -18,14 +19,14 @@ def setup_hitlist():
 class VoteSubmissionTests(TestCase):
     def test_create_vote_submission_without_hitlist(self):
         with self.assertRaises(Exception):
-            VoteSubmission.create_vote_submission(
+            VoteSubmissionService.create_vote_submission(
                 "jur", "track1", "track2", "track3", "track4", "track5"
             )
 
     def test_create_vote_submissions_incorrect_tracks(self):
         setup_hitlist()
         with self.assertRaises(Exception):
-            VoteSubmission.create_vote_submission(
+            VoteSubmissionService.create_vote_submission(
                 "jur", "track1", "track2", "track3", "track4", "track5"
             )
         self.assertEqual(
@@ -36,7 +37,7 @@ class VoteSubmissionTests(TestCase):
     def test_create_vote_submissions_partial_incorrect_tracks(self):
         setup_hitlist()
         with self.assertRaises(Exception):
-            VoteSubmission.create_vote_submission(
+            VoteSubmissionService.create_vote_submission(
                 "jur",
                 "spotify:track:4uUG5RXrOk84mYEfFvj3cK",
                 "spotify:track:6hgoYQDUcPyCz7LcTUHKxa",
@@ -56,7 +57,7 @@ class VoteSubmissionTests(TestCase):
 
     def test_create_vote_submission_correct(self):
         setup_hitlist()
-        VoteSubmission.create_vote_submission(
+        VoteSubmissionService.create_vote_submission(
             "jur",
             "spotify:track:4uUG5RXrOk84mYEfFvj3cK",
             "spotify:track:6hgoYQDUcPyCz7LcTUHKxa",

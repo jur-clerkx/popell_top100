@@ -1,0 +1,2 @@
+class NoOpenHitListException(Exception):
+    pass
