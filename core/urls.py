@@ -2,8 +2,6 @@ from django.urls import path
 
 from . import views
 
-HITLIST_LIST = "core:hitlist-list"
-DASHBOARD = "core:dashboard"
 
 app_name = "core"
 urlpatterns = [
