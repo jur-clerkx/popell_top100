@@ -1,4 +1,5 @@
 from .settings import *
+import os
 
 DATABASES = {
     "default": {
@@ -13,7 +14,9 @@ DATABASES = {
 
 DEBUG = False
 SECURE_SSL_REDIRECT = False
-SECRET_KEY = "nvj1!%2jekp83*yy@1m%(@d5!)+2=!jh&z-p0k8m0f!+z!pi1p"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-CSRF_TRUSTED_ORIGINS = ["https://top100.stichtingpopell.nl", ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://top100.stichtingpopell.nl",
+    "https://top100.moerebuuk.nl",
+]

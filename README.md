@@ -35,6 +35,7 @@ It can be deactivated by executing `exit`.
 By default, the project uses the development settings. This includes having the project in debug mode. However, some
 things still have to be set to make sure the spotify integration works on your local machine:
 
+- Set `DJANGO_SECRET` in the environment variables. You can generate one at `https://djecrety.ir/`
 - Set the `SPOTIFY_CLIENT_ID` in the environment variables to your spotify API client ID
 - Set the `SPOTIFY_CLIENT_SECRET` in the environment variables to your spotify API client secret
 - Set the `SPOTIPY_REDIRECT_URI` in the environment variables to a local URL for the spotify OAuth callback.
@@ -45,27 +46,11 @@ things still have to be set to make sure the spotify integration works on your l
 To deploy the app in production configuration, make sure the following settings are configured:
 
 - Make sure the app uses the `popell_top100.prod_settings` settings file
+- Set `DJANGO_SECRET` in the environment variables. You can generate one at `https://djecrety.ir/`
 - Set the `SPOTIFY_CLIENT_ID` in the environment variables to your spotify API client ID
 - Set the `SPOTIFY_CLIENT_SECRET` in the environment variables to your spotify API client secret
 - Set the `SPOTIPY_REDIRECT_URI` in the environment variables to a URL for the spotify OAuth callback that redirects to
   your server. This port has to be open to the server. E.g. `example.com:9999`.
-
-### Database configuration
-
-Production doesn't use SQLite but PostgresSQL. The following configurations are needed to setup the database connection:
-
-- In the working directory, create the `.pg_service.conf` file with the following contents:
-  ```properties
-  [popell_top100]
-  host=<db_host>
-  user=<db_username>
-  dbname=<db_name>
-  port=<db_port>
-  ```
-- In the working directory, create the `.my_pgpass` file, containing the connection string to the db:
-  ```text
-  <db_host>:<db_port>:<db_name>:<db_user>:<db_password>
-  ```
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
