@@ -9,6 +9,8 @@ from core.models.tracks import Track
 
 
 class HitList(models.Model):
+    THEME_CHOICES = (("rock", "Rock"), ("carnaval", "Carnaval"))
+
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(
         max_length=255, blank=False, null=False, unique=True
@@ -17,6 +19,9 @@ class HitList(models.Model):
     vote_end_date = models.DateTimeField(blank=False, null=False)
     is_closed = models.BooleanField(default=False)
     description = models.TextField(blank=False, null=False, default="")
+    theme = models.CharField(
+        max_length=255, choices=THEME_CHOICES, default="rock"
+    )
 
     def get_list(self):
         return (

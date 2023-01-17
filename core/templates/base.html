@@ -15,6 +15,9 @@
 
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <link href="{% static 'css/logo.css' %}" rel="stylesheet">
+    {% if hitlist and hitlist.theme == 'carnaval' %}
+    <link href="{% static 'css/carnaval.css' %}" rel="stylesheet">
+    {% endif %}
     {% block head %} {% endblock %}
 </head>
 <body>
