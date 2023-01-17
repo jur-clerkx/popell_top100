@@ -65,7 +65,7 @@ class VoteView(OpenHitListRequiredMixin, View):
             self.template_name,
             {
                 "voteForm": VoteSubmissionForm(),
-                "hitlist": SettingsService.get_current_hitlist(),
+                "hitlist": HitListService.get_current_hitlist(),
             },
         )
 
@@ -101,11 +101,22 @@ class VoteSubmissionDetailView(DetailView):
             super().get_queryset().prefetch_related("vote_set__track__artists")
         )
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        vote = self.get_object()
+        context["hitlist"] = vote.hit_list
+        return context
+
 
 class AddCustomTrackView(FormView):
     form_class = CustomTrackForm
     template_name = "add_custom_song.html"
     success_url = reverse_lazy("core:add-custom-track-success")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["hitlist"] = HitListService.get_current_hitlist()
+        return context
 
     def form_valid(self, form):
         form.save()
@@ -186,7 +197,13 @@ class HistListListView(LoginRequiredMixin, ListView):
 class HitListCreateView(LoginRequiredMixin, CreateView):
     model = HitList
     template_name = "dashboard/cms/hitlistcreate.html"
-    fields = ["name", "vote_start_date", "vote_end_date", "description"]
+    fields = [
+        "name",
+        "vote_start_date",
+        "vote_end_date",
+        "description",
+        "theme",
+    ]
     success_url = reverse_lazy(HITLIST_LIST_URL)
 
     def get_form(self, form_class=None):
@@ -205,6 +222,7 @@ class HitListUpdateView(LoginRequiredMixin, UpdateView):
         "vote_start_date",
         "vote_end_date",
         "description",
+        "theme",
         "is_closed",
     ]
     success_url = reverse_lazy(HITLIST_LIST_URL)

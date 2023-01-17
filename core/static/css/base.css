@@ -3,6 +3,7 @@ body {
     background-repeat: no-repeat;
     background-image: url("/static/img/popell_background.jpg");
     background-attachment: fixed;
+    background-position: center;
 }
 
 .content{
