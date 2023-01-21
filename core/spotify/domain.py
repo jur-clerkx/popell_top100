@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from typing import List
+import core.models.tracks as models
 
 
 @dataclass
@@ -9,7 +10,7 @@ class Artist:
     spotify_url: str
 
     @staticmethod
-    def from_json(json):
+    def from_json(json: dict) -> "Artist":
         return Artist(
             json["uri"], json["name"], json["external_urls"]["spotify"]
         )
@@ -25,11 +26,11 @@ class Track:
     preview_url: str
 
     @property
-    def spotify_uri(self):
+    def spotify_uri(self) -> str:
         return self.id
 
     @staticmethod
-    def from_json(json):
+    def from_json(json: dict) -> "Track":
         return Track(
             json["uri"],
             json["name"],
@@ -40,7 +41,7 @@ class Track:
         )
 
     @staticmethod
-    def from_model(model):
+    def from_model(model: models.Track) -> "Track":
         return Track(
             model.id,
             model.title,
@@ -50,7 +51,7 @@ class Track:
                     model.artists.all(),
                 )
             ),
+            model.image_url if model.image_url else "",
             "",
-            "",
-            "",
+            model.preview_url if model.preview_url else "",
         )
