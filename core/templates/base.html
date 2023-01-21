@@ -16,12 +16,12 @@
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <link href="{% static 'css/logo.css' %}" rel="stylesheet">
     {% if hitlist and hitlist.theme == 'carnaval' %}
-    <link href="{% static 'css/carnaval.css' %}" rel="stylesheet">
+        <link href="{% static 'css/carnaval.css' %}" rel="stylesheet">
     {% endif %}
     {% block head %} {% endblock %}
 </head>
 <body>
-<div class="col-lg-10 mx-auto p-4 py-md-5">
+<div class="col-lg-10 mx-auto pt-4 py-md-5">
     <header class="pb-3 mb-4 border-bottom">
         <div class="logo">
             <span class="logo_stichting">STICHTING</span>
@@ -31,6 +31,10 @@
     <div class="content">
         {% block content %}<!-- default content text (typically empty) -->{% endblock %}
     </div>
+    <footer class="py-3 mt-4 border-top footer bottom">
+        <p class="text-center">Bij elkaar gecomputerd door <a href="https://github.com/jur-clerkx/">@jur-clerkx</a>
+            & <a href="https://github.com/KaiCorstjens/">@KaiCorstjens</a></p>
+    </footer>
 </div>
 </body>
 </html>
