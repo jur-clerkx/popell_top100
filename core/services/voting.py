@@ -1,5 +1,6 @@
 import datetime
 
+import django_excel
 from django.db import transaction
 
 from core.exceptions import NoOpenHitListException
@@ -26,6 +27,15 @@ class HitListService:
             )
             .prefetch_related("votesubmission_set__vote_set__track__artists")
             .first()
+        )
+
+    @staticmethod
+    def export_to_excel(hitlist: HitList):
+        return django_excel.make_response_from_query_sets(
+            hitlist.get_list(),
+            ["title", "artist_string", "score", "votes"],
+            "xlsx",
+            file_name=hitlist.name + ".xlsx",
         )
 
 

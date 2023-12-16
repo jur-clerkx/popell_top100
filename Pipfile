@@ -14,6 +14,8 @@ psycopg2-binary = "*"
 django-tinymce = "*"
 djangorestframework = "*"
 django-cors-headers = "~=3.13"
+django-excel = "*"
+pyexcel-xlsx = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"

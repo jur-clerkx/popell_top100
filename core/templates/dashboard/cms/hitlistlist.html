@@ -21,6 +21,7 @@
                         <td>{{ object.vote_end_date }}</td>
                         <td>{% if object.is_closed %}Ja{% else %}Nee{% endif %}</td>
                         <td>
+                            <a href="{% url "core:hitlist-export" object.pk %}" class="btn btn-primary">Exporteren</a>
                             <a href="{% url "core:hitlist-update" object.pk %}" class="btn btn-warning">Bewerken</a>
                             <a href="{% url "core:hitlist-delete" object.pk %}" class="btn btn-danger">Verwijderen</a>
                         </td>

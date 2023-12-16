@@ -54,6 +54,11 @@ urlpatterns = [
         name="hitlist-delete",
     ),
     path(
+        "dashboard/cms/hitlist/export/<str:pk>",
+        views.HitListExportView.as_view(),
+        name="hitlist-export",
+    ),
+    path(
         "dashboard/cms/custom-track",
         views.CustomTrackListView.as_view(),
         name="custom-track-list",
