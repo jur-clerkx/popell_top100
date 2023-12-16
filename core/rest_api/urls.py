@@ -4,7 +4,6 @@ from rest_framework import routers
 from core.rest_api.views import CurrentHitListView
 
 router = routers.SimpleRouter()
-print(router.urls)
 
 urlpatterns = [
     path("", include(router.urls)),
