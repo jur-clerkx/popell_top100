@@ -149,7 +149,7 @@ class TrackStatsGetView(View):
         year = request.GET.get("year", "")
         hitlist = HitListService.get_by_year(year)
         track = Track.objects.filter(title=title).first()
-        votes = Vote.objects.filter(track=track, submission__hit_list=hitlist)
+        votes = Vote.objects.filter(track=track, submission__hit_list=hitlist, submission__is_invalidated=False)
         position = 1
         for entry in hitlist.get_list():
             if entry.id == track.id:
