@@ -36,8 +36,8 @@ DASHBOARD_URL = "core:dashboard"
 class OpenHitListRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
         if (
-            not HitListService.get_current_hitlist()
-            or HitListService.get_current_hitlist().is_closed
+                not HitListService.get_current_hitlist()
+                or HitListService.get_current_hitlist().is_closed
         ):
             return redirect("core:closed")
         return super().dispatch(request, *args, **kwargs)
@@ -73,7 +73,7 @@ class VoteView(OpenHitListRequiredMixin, View):
         activate("nl")  # Make sure errors are displayed in correct language
         form = VoteSubmissionForm(request.POST)
         if (
-            form.is_valid()
+                form.is_valid()
         ):  # Valid submission, save and redirect to detail page
             vote_submission = form.save()
             return redirect(
@@ -239,6 +239,12 @@ class HitListDeleteView(LoginRequiredMixin, DeleteView):
     model = HitList
     success_url = reverse_lazy(HITLIST_LIST_URL)
     template_name = "dashboard/cms/hitlistdelete.html"
+
+
+class HitListExportView(LoginRequiredMixin, View):
+    def get(self, request, pk, *args, **kwargs):
+        hitlist = get_object_or_404(HitList, id=pk)
+        return HitListService.export_to_excel(hitlist)
 
 
 class CustomTrackListView(LoginRequiredMixin, ListView):

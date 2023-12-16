@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "97eac9dc3e01a625f19dc606925b26042b46f766719e3e65300dfcb2a5b332c8"
+            "sha256": "e668d79bbd2995a5a16a3159daa0d204820fe7fced26ff0f4aeb19a40caaed7f"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -39,6 +39,14 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==2023.11.17"
+        },
+        "chardet": {
+            "hashes": [
+                "sha256:1b3b6ff479a8c414bc3fa2c0852995695c4a026dcd6d0633b2dd092ca39c1cf7",
+                "sha256:e1cf59446890a00105fe7b7912492ea04b6e6f06d4b742b2c788469e34c82970"
+            ],
+            "markers": "python_version >= '3.7'",
+            "version": "==5.2.0"
         },
         "charset-normalizer": {
             "hashes": [
@@ -179,6 +187,14 @@
             "markers": "python_version >= '3.7'",
             "version": "==1.14.0"
         },
+        "django-excel": {
+            "hashes": [
+                "sha256:81cd3bce8007009c30205f7085a97f2908557014900775577cab0b9a770c2bad",
+                "sha256:f0297202fc460eb74657f8a9d4473921050fbe2e297765c174be9cf33d1195c7"
+            ],
+            "index": "pypi",
+            "version": "==0.0.10"
+        },
         "django-select2": {
             "hashes": [
                 "sha256:6c56749ca5dd11be9a78a0861086973170c605ace27126c109f3d722cea3c32e",
@@ -204,6 +220,14 @@
             "markers": "python_version >= '3.6'",
             "version": "==3.14.0"
         },
+        "et-xmlfile": {
+            "hashes": [
+                "sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c",
+                "sha256:a2ba85d1d6a74ef63837eed693bcb89c3f752169b0e3e7ae5b16ca5e1b3deada"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==1.1.0"
+        },
         "idna": {
             "hashes": [
                 "sha256:9ecdbbd083b06798ae1e86adcbfe8ab1479cf864e4ee30fe4e46a003d12491ca",
@@ -211,6 +235,21 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==3.6"
+        },
+        "lml": {
+            "hashes": [
+                "sha256:57a085a29bb7991d70d41c6c3144c560a8e35b4c1030ffb36d85fa058773bcc5",
+                "sha256:ec06e850019942a485639c8c2a26bdb99eae24505bee7492b649df98a0bed101"
+            ],
+            "version": "==0.1.0"
+        },
+        "openpyxl": {
+            "hashes": [
+                "sha256:a6f5977418eff3b2d5500d54d9db50c8277a368436f4e4f8ddb1be3422870184",
+                "sha256:f91456ead12ab3c6c2e9491cf33ba6d08357d802192379bb482f1033ade496f5"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==3.1.2"
         },
         "psycopg2-binary": {
             "hashes": [
@@ -291,6 +330,38 @@
             "markers": "python_version >= '3.7'",
             "version": "==2.9.9"
         },
+        "pyexcel": {
+            "hashes": [
+                "sha256:ddc6904512bfa2ecda509fb3b58229bb30db14498632fd9e7a5ba7bbfb02ed1b",
+                "sha256:fbf0eee5d93b96cef6f19a9f00703f22c0a64f19728d91b95428009a52129709"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==0.7.0"
+        },
+        "pyexcel-io": {
+            "hashes": [
+                "sha256:19ff1d599a8a6c0982e4181ef86aa50e1f8d231410fa7e0e204d62e37551c1d6",
+                "sha256:f6084bf1afa5fbf4c61cf7df44370fa513821af188b02e3e19b5efb66d8a969f"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==0.6.6"
+        },
+        "pyexcel-webio": {
+            "hashes": [
+                "sha256:039538f1b35351f1632891dde29ef4d7fba744e217678ebb5a501336e28ca265",
+                "sha256:3583cf7dcddb747520a8a90e93cf07b0584878b56b3c41c46d132b458a6cfd00"
+            ],
+            "version": "==0.1.4"
+        },
+        "pyexcel-xlsx": {
+            "hashes": [
+                "sha256:16530f96a77c97ebcba7941517d2756ac52d3ce2903d81eecd7f300778d5242a",
+                "sha256:55754f764252461aca6871db203f4bd1370ec877828e305e6be1de5f9aa6a79d"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.6'",
+            "version": "==0.6.0"
+        },
         "pytz": {
             "hashes": [
                 "sha256:7b4fddbeb94a1eba4b557da24f19fdf9db575192544270a9101d8509f9f43d7b",
@@ -346,6 +417,13 @@
             ],
             "markers": "python_version >= '3.5'",
             "version": "==0.4.4"
+        },
+        "texttable": {
+            "hashes": [
+                "sha256:2d2068fb55115807d3ac77a4ca68fa48803e84ebb0ee2340f858107a36522638",
+                "sha256:72227d592c82b3d7f672731ae73e4d1f88cd8e2ef5b075a7a7f01a23a3743917"
+            ],
+            "version": "==1.7.0"
         },
         "typing-extensions": {
             "hashes": [

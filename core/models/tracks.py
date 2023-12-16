@@ -40,6 +40,10 @@ class Track(models.Model):
     # Boolean field to check if track is from spotify
     is_non_spotify = models.BooleanField(default=False)
 
+    @property
+    def artist_string(self) -> str:
+        return artist_list(self.artists.all())
+
     def __str__(self):
         result = self.title + " - " + artist_list(self.artists.all())
         if self.is_non_spotify:
