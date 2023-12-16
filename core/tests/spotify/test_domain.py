@@ -27,6 +27,7 @@ class TrackTests(TestCase):
             Artist(artist1.id, artist1.name, ""),
             Artist(artist2.id, artist2.name, ""),
         ]
+        expected.sort(key=lambda x: x.id)
         result = Track.from_model(track)
         self.assertListEqual(result.track_artists, expected)
 
