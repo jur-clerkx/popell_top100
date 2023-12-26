@@ -1,4 +1,5 @@
 import uuid
+from typing import Optional
 
 from django.db import models
 
@@ -43,6 +44,15 @@ class Track(models.Model):
     @property
     def artist_string(self) -> str:
         return artist_list(self.artists.all())
+
+    @staticmethod
+    def find_by_uri_or_title(spotify_uri: Optional[str], title: Optional[str]) -> Optional["Track"]:
+        track = None
+        if spotify_uri:
+            track = Track.objects.filter(spotify_uri=spotify_uri).first()
+        if title and track is None:
+            return Track.objects.filter(title=title).first()
+        return track
 
     def __str__(self):
         result = self.title + " - " + artist_list(self.artists.all())
