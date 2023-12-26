@@ -147,8 +147,13 @@ class TrackStatsGetView(View):
     def get(self, request, *args, **kwargs):
         title = request.GET.get("title", "")
         year = request.GET.get("year", "")
+        artist = request.GET.get("artist", "")
+        track_uri = request.GET.get("spotify_uri", "")
+        print(title, year, artist, track_uri)
         hitlist = HitListService.get_by_year(year)
-        track = Track.objects.filter(title=title).first()
+        track = Track.find_by_uri_or_title(track_uri, title)
+        if track is None:
+            return JsonResponse(status=404, data={"error": "Track not found!"})
         votes = Vote.objects.filter(track=track, submission__hit_list=hitlist, submission__is_invalidated=False)
         position = 1
         for entry in hitlist.get_list():
