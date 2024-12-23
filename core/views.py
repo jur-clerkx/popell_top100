@@ -17,6 +17,7 @@ from django.views.generic import (
 from django.utils.translation import activate
 import logging
 
+from rapidfuzz.fuzz import QRatio
 from thefuzz import process
 from tinymce.widgets import TinyMCE
 
@@ -206,9 +207,9 @@ class SimilarTrackView(LoginRequiredMixin, TemplateView):
         for track_name in track_names:
             match_list = list(track_names)
             match_list.remove(track_name)
-            fuzz = process.extract(track_name, match_list, limit=3)
+            fuzz = process.extract(track_name, match_list, scorer=QRatio, limit=3)
             for match_name, score in fuzz:
-                if score > 75:
+                if score > 70:
                     results.append((track_name, match_name, score))
 
         ctx["similar_tracks"] = results
