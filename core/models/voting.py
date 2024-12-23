@@ -30,7 +30,7 @@ class HitList(models.Model):
                 vote__submission__is_invalidated=False,
             )
             .annotate(votes=Count("vote__points"), score=Sum("vote__points"))
-            .order_by("-score", "-votes", "-vote__submission__timestamp")
+            .order_by("-score", "-votes", "vote__submission__timestamp")
             .prefetch_related("artists")
         )
 
