@@ -59,6 +59,11 @@ urlpatterns = [
         name="hitlist-export",
     ),
     path(
+        "dashboard/cms/similar-tracks",
+        views.SimilarTrackView.as_view(),
+        name="similar-track-list",
+    ),
+    path(
         "dashboard/cms/custom-track",
         views.CustomTrackListView.as_view(),
         name="custom-track-list",

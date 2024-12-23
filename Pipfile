@@ -18,6 +18,7 @@ django-excel = "*"
 pyexcel-xlsx = "*"
 async-timeout = "*"
 setuptools = "*"
+thefuzz = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
