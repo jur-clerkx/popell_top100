@@ -10,12 +10,14 @@ django-crispy-forms = "~=1.14"
 django-select2 = "~=7.10"
 crispy_bootstrap5 = "*"
 sentry-sdk = "*"
-psycopg2-binary = "*"
+psycopg2 = "*"
 django-tinymce = "*"
 djangorestframework = "*"
 django-cors-headers = "~=3.13"
 django-excel = "*"
 pyexcel-xlsx = "*"
+async-timeout = "*"
+setuptools = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
@@ -25,4 +27,4 @@ flake8 = "~=5.0"
 coverage = "*"
 
 [requires]
-python_version = "3.10"
+python_version = "3.13"
