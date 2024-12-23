@@ -155,6 +155,8 @@ class TrackStatsGetView(View):
         if track is None:
             return JsonResponse(status=404, data={"error": "Track not found!"})
         votes = Vote.objects.filter(track=track, submission__hit_list=hitlist, submission__is_invalidated=False)
+        if votes.count() == 0:
+            return JsonResponse(status=404, data={"error": "Track not part of hitlist!"})
         position = 1
         for entry in hitlist.get_list():
             if entry.id == track.id:
