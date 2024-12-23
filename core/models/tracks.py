@@ -54,8 +54,13 @@ class Track(models.Model):
             return Track.objects.filter(title=title).first()
         return track
 
+    @property
+    def full_track_string(self):
+        return self.title + " - " + artist_list(self.artists.all())
+
     def __str__(self):
         result = self.title + " - " + artist_list(self.artists.all())
         if self.is_non_spotify:
             result += " (Non Spotify)"
         return result
+

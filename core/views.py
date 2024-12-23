@@ -17,6 +17,7 @@ from django.views.generic import (
 from django.utils.translation import activate
 import logging
 
+from thefuzz import process
 from tinymce.widgets import TinyMCE
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
@@ -193,6 +194,24 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         ctx["invalidated"] = VoteSubmission.objects.filter(
             hit_list=ctx["hitlist"], is_invalidated=True
         ).count()
+        return ctx
+
+class SimilarTrackView(LoginRequiredMixin, TemplateView):
+    template_name = "dashboard/cms/similartracks.html"
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        track_names = [t.full_track_string for t in Track.objects.all()]
+        results = []
+        for track_name in track_names:
+            match_list = list(track_names)
+            match_list.remove(track_name)
+            fuzz = process.extract(track_name, match_list, limit=3)
+            for match_name, score in fuzz:
+                if score > 75:
+                    results.append((track_name, match_name, score))
+
+        ctx["similar_tracks"] = results
         return ctx
 
 

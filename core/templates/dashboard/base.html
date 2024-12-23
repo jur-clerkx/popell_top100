@@ -61,6 +61,11 @@
                                    href="{{ customtracklist_link }}">
                                     Eigen nummers
                                 </a>
+                                {% url 'core:similar-track-list' as similartracklist_link %}
+                                <a class="dropdown-item{% if request.path == similartracklist_link %} active{% endif %}"
+                                   href="{{ similartracklist_link }}">
+                                    Dubbellen nummers
+                                </a>
                                 {% url 'core:merge-tracks' as mergetracks_link %}
                                 <a class="dropdown-item{% if request.path == mergetracks_link %} active{% endif %}"
                                    href="{{ mergetracks_link }}">
