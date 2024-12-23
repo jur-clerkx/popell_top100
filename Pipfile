@@ -17,6 +17,7 @@ django-cors-headers = "~=3.13"
 django-excel = "*"
 pyexcel-xlsx = "*"
 async-timeout = "*"
+setuptools = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
