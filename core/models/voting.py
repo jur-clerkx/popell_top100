@@ -2,7 +2,7 @@ import datetime
 import uuid
 
 from django.db import models, transaction
-from django.db.models import Count, Sum
+from django.db.models import Count, Sum, Min
 
 from core.models.settings import HitListSettings
 from core.models.tracks import Track
@@ -29,8 +29,8 @@ class HitList(models.Model):
                 vote__submission__hit_list=self,
                 vote__submission__is_invalidated=False,
             )
-            .annotate(votes=Count("vote__points"), score=Sum("vote__points"))
-            .order_by("-score", "-votes", "vote__submission__timestamp")
+            .annotate(votes=Count("vote__points"), score=Sum("vote__points"), first_vote=Min("vote__submission__timestamp"))
+            .order_by("-score", "-votes", "first_vote")
             .prefetch_related("artists")
         )
 
