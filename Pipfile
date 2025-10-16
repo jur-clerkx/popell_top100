@@ -22,7 +22,7 @@ thefuzz = "*"
 
 [dev-packages]
 django-debug-toolbar = "~=3.6"
-black = "~=24.3"
+black = "~=25.9"
 pre-commit = "*"
 flake8 = "~=5.0"
 coverage = "*"
