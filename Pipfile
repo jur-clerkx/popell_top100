@@ -21,7 +21,7 @@ setuptools = "*"
 thefuzz = "*"
 
 [dev-packages]
-django-debug-toolbar = "~=3.6"
+django-debug-toolbar = "~=6.0"
 black = "~=24.3"
 pre-commit = "*"
 flake8 = "~=5.0"
