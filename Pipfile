@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "~=4.2"
+django = "~=5.2"
 spotipy = "~=2.2"
 django-crispy-forms = "~=1.14"
 django-select2 = "~=8.0"
