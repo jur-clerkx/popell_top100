@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "795dd8f3dfe95b3d15289d7ba34ed856725d6c660d066a4bb6a2b20e166adfb2"
+            "sha256": "2c8a194af4dd1d106774b5079acdc514b4b106c94f070388a2df4bee2bc520c9"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -197,12 +197,12 @@
         },
         "django-crispy-forms": {
             "hashes": [
-                "sha256:35887b8851a931374dd697207a8f56c57a9c5cb9dbf0b9fa54314da5666cea5b",
-                "sha256:bc4d2037f6de602d39c0bc452ac3029d1f5d65e88458872cc4dbc01c3a400604"
+                "sha256:5a4b99876cfb1bdd3e47727731b6d4197c51c0da502befbfbec6a93010b02030",
+                "sha256:915e1ffdeb2987d78b33fabfeff8e5203c8776aa910a3a659a2c514ca125f3bd"
             ],
             "index": "pypi",
-            "markers": "python_version >= '3.7'",
-            "version": "==1.14.0"
+            "markers": "python_version >= '3.8'",
+            "version": "==2.4"
         },
         "django-excel": {
             "hashes": [

@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 django = "~=4.2"
 spotipy = "~=2.2"
-django-crispy-forms = "~=1.14"
+django-crispy-forms = "~=2.4"
 django-select2 = "~=8.0"
 crispy_bootstrap5 = "*"
 sentry-sdk = "*"
