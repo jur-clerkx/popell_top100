@@ -37,7 +37,7 @@ jobs:
           pipenv run coverage xml
 
       - name: SonarCloud Scan
-        uses: SonarSource/sonarqube-scan-action@5.0.0
+        uses: SonarSource/sonarqube-scan-action@v6.0.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
