@@ -18,8 +18,8 @@ from django.utils.translation import activate
 import logging
 
 from rapidfuzz.fuzz import QRatio
-from thefuzz import process
-from tinymce.widgets import TinyMCE
+from thefuzz import process  # type: ignore
+from tinymce.widgets import TinyMCE  # type: ignore
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
 from core.models.voting import VoteSubmission, HitList, Vote
@@ -38,8 +38,8 @@ DASHBOARD_URL = "core:dashboard"
 class OpenHitListRequiredMixin(View):
     def dispatch(self, request, *args, **kwargs):
         if (
-                not HitListService.get_current_hitlist()
-                or HitListService.get_current_hitlist().is_closed
+            not HitListService.get_current_hitlist()
+            or HitListService.get_current_hitlist().is_closed
         ):
             return redirect("core:closed")
         return super().dispatch(request, *args, **kwargs)
@@ -75,7 +75,7 @@ class VoteView(OpenHitListRequiredMixin, View):
         activate("nl")  # Make sure errors are displayed in correct language
         form = VoteSubmissionForm(request.POST)
         if (
-                form.is_valid()
+            form.is_valid()
         ):  # Valid submission, save and redirect to detail page
             vote_submission = form.save()
             return redirect(
@@ -156,9 +156,15 @@ class TrackStatsGetView(View):
         track = Track.find_by_uri_or_title(track_uri, title)
         if track is None:
             return JsonResponse(status=404, data={"error": "Track not found!"})
-        votes = Vote.objects.filter(track=track, submission__hit_list=hitlist, submission__is_invalidated=False)
+        votes = Vote.objects.filter(
+            track=track,
+            submission__hit_list=hitlist,
+            submission__is_invalidated=False,
+        )
         if votes.count() == 0:
-            return JsonResponse(status=404, data={"error": "Track not part of hitlist!"})
+            return JsonResponse(
+                status=404, data={"error": "Track not part of hitlist!"}
+            )
         position = 1
         for entry in hitlist.get_list():
             if entry.id == track.id:
@@ -197,6 +203,7 @@ class DashboardView(LoginRequiredMixin, TemplateView):
         ).count()
         return ctx
 
+
 class SimilarTrackView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard/cms/similartracks.html"
 
@@ -207,7 +214,9 @@ class SimilarTrackView(LoginRequiredMixin, TemplateView):
         for track_name in track_names:
             match_list = list(track_names)
             match_list.remove(track_name)
-            fuzz = process.extract(track_name, match_list, scorer=QRatio, limit=3)
+            fuzz = process.extract(
+                track_name, match_list, scorer=QRatio, limit=3
+            )
             for match_name, score in fuzz:
                 if score > 70:
                     results.append((track_name, match_name, score))

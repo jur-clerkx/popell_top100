@@ -26,6 +26,9 @@ black = "~=24.3"
 pre-commit = "*"
 flake8 = "~=5.0"
 coverage = "*"
+mypy = "*"
+django-stubs = {extras = ["compatible-mypy"], version = "*"}
+djangorestframework-stubs = {extras = ["compatible-mypy"], version = "*"}
 
 [requires]
 python_version = "3.13"
