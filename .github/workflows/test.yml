@@ -26,6 +26,10 @@ jobs:
       - name: Install dependencies
         run: |
           pipenv install --deploy --dev
+        
+      - name: Run MyPy type checking
+        run: |
+          pipenv run mypy .
 
       - name: Run tests
         run: |
