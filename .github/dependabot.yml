@@ -17,4 +17,11 @@ updates:
  - package-ecosystem: "pip"
    directory: "/"
    schedule:
-     interval: weekly
+     interval: daily
+   groups:
+     minor-and-patch:
+       patterns:
+         - "*"
+       update-types:
+         - "version-update:semver-minor"
+         - "version-update:semver-patch"
