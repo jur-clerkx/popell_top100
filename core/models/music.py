@@ -58,10 +58,10 @@ class Track(models.Model):
 
     @property
     def full_track_string(self):
-        return self.title + " - " + artist_list(self.artists.all())
+        return self.title + " - " + self.artist_string
 
     def __str__(self):
-        result = self.title + " - " + artist_list(self.artists.all())
+        result = self.title + " - " + self.artist_string
         if self.is_non_spotify:
             result += " (Non Spotify)"
         return result

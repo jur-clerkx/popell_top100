@@ -13,7 +13,7 @@ class TrackModelTest(TestCase):
         track.artists.add(self.a1, self.a2)
 
         self.assertEqual(
-            track.full_track_string, "My Song - Artist Two, Artist One"
+            track.full_track_string, "My Song - Artist One, Artist Two"
         )
 
     def test_should_return_full_track_string_without_non_spotify_marker_as_string_representation_for_spotify_track(
@@ -30,7 +30,7 @@ class TrackModelTest(TestCase):
         track = Track.objects.create(title="My Song", is_non_spotify=True)
         track.artists.add(self.a1, self.a2)
         self.assertEqual(
-            str(track), "My Song - Artist Two, Artist One (Non Spotify)"
+            str(track), "My Song - Artist One, Artist Two (Non Spotify)"
         )
 
     def test_should_return_non_if_no_uri_or_title_provided(self):
