@@ -64,7 +64,7 @@
                 "language": "nl",
                 ajax: {
                     delay: 250,
-                    url: '{% url 'core:api-search' %}',
+                    url: '{% url 'api:search' %}',
                     data: function (params) {
                         return {
                             q: params.term,
