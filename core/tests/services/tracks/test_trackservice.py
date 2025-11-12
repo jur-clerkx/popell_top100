@@ -1,10 +1,10 @@
 from django.test import TestCase
 
-from core.models.tracks import Track
-from core.services.tracks import TrackService
+from core.models.music import Track
+from core.services.music import TrackService
 
 
-class TrackTests(TestCase):
+class TrackServiceTests(TestCase):
     def test_create_track_with_incorrect_spotify_uri(self):
         with self.assertRaises(Exception):
             TrackService.get_or_create_song_by_uri("incorrect_uri")

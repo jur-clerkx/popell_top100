@@ -1,6 +1,6 @@
 from django.db import models, transaction
 
-from core.models.tracks import Artist, Track
+from core.models.music import Artist, Track
 from core.models.voting import Vote
 from core.spotify import spotify
 

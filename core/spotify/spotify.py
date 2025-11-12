@@ -3,7 +3,7 @@ import os
 from spotipy import Spotify, SpotifyClientCredentials, SpotifyOAuth  # type: ignore
 
 from core.spotify.domain import Track, Artist
-from core.models import tracks as models
+from core.models import music as models
 
 
 def get_client() -> Spotify:

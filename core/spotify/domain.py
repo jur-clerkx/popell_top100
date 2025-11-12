@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import List
-import core.models.tracks as models
+import core.models.music as models
 
 
 @dataclass

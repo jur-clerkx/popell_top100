@@ -21,9 +21,9 @@ from tinymce.widgets import TinyMCE  # type: ignore
 
 from core.forms import VoteSubmissionForm, CustomTrackForm, MergeTracksForm
 from core.models.voting import VoteSubmission, HitList, Vote
-from core.models.tracks import Track
+from core.models.music import Track
 from core.services.settings import SettingsService
-from core.services.tracks import SimilarTrackService
+from core.services.music import SimilarTrackService
 from core.services.voting import HitListService
 from core.spotify import spotify
 from core.widgets import CustomDateTimeInput

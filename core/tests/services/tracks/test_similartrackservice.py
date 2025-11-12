@@ -1,6 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch, PropertyMock
-from core.services.tracks import SimilarTrackService
+from core.services.music import SimilarTrackService
 
 
 class TestSimilarTrackService(unittest.TestCase):
