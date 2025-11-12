@@ -1,3 +1,4 @@
+from typing import Optional
 from django.db import transaction
 
 from core.models.voting import HitList
@@ -9,7 +10,7 @@ COOKIE_VALUE = "dashboard_hitlist_id"
 class SettingsService:
     @staticmethod
     @transaction.atomic
-    def get_current_hitlist(request: HttpRequest) -> "HitList":
+    def get_current_hitlist(request: HttpRequest) -> Optional[HitList]:
         hitlist_id = request.session.get(COOKIE_VALUE)
         if hitlist_id is None:
             hitlist = HitList.objects.first()
@@ -19,7 +20,8 @@ class SettingsService:
 
     @staticmethod
     @transaction.atomic
-    def set_current_hitlist(request: HttpRequest, hitlist: "HitList") -> None:
+    def set_current_hitlist(
+        request: HttpRequest, hitlist: Optional[HitList]
+    ) -> None:
         if hitlist is not None:
-            print(f"Setting current hitlist to {str(hitlist)}")
             request.session[COOKIE_VALUE] = str(hitlist.id)

@@ -20,7 +20,7 @@ class SettingsServiceTests(TestCase):
         hl = self._create_hitlist("Test HitList")
         request = self._create_request()
         SettingsService.set_current_hitlist(request, hl)
-        self.assertEqual(request.session[COOKIE_VALUE], hl.id)
+        self.assertEqual(request.session[COOKIE_VALUE], str(hl.id))
 
     def test_set_current_hitlist_with_none_does_nothing(self):
         request = self._create_request()
@@ -41,7 +41,7 @@ class SettingsServiceTests(TestCase):
         # session key not set or None
         current = SettingsService.get_current_hitlist(request)
         self.assertEqual(current.pk, hl.pk)
-        self.assertEqual(request.session[COOKIE_VALUE], hl.id)
+        self.assertEqual(request.session[COOKIE_VALUE], str(hl.id))
 
     def _create_request(self):
         from django.test import RequestFactory
