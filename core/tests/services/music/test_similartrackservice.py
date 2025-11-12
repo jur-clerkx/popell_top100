@@ -4,7 +4,7 @@ from core.services.music import SimilarTrackService
 
 
 class TestSimilarTrackService(unittest.TestCase):
-    @patch("core.services.tracks.Track")
+    @patch("core.services.music.Track")
     def test_similar_tracks_returns_matches_above_threshold(
         self, mock_track_model
     ):
@@ -32,7 +32,7 @@ class TestSimilarTrackService(unittest.TestCase):
             )
         )
 
-    @patch("core.services.tracks.Track")
+    @patch("core.services.music.Track")
     def test_dissimilar_tracks_not_returned(self, mock_track_model):
         """Test that dissimilar track names with score <= 70 are not returned"""
         # Arrange
@@ -62,7 +62,7 @@ class TestSimilarTrackService(unittest.TestCase):
             )
         )
 
-    @patch("core.services.tracks.Track")
+    @patch("core.services.music.Track")
     def test_empty_track_list_returns_empty_results(self, mock_track_model):
         """Test that an empty track list returns empty results"""
         # Arrange
@@ -74,7 +74,7 @@ class TestSimilarTrackService(unittest.TestCase):
         # Assert
         self.assertEqual(results, [])
 
-    @patch("core.services.tracks.Track")
+    @patch("core.services.music.Track")
     def test_single_track_returns_empty_results(self, mock_track_model):
         """Test that a single track returns empty results"""
         # Arrange
