@@ -4,7 +4,7 @@ from django.urls import reverse
 from datetime import datetime, timedelta
 
 from core.models.voting import HitList
-from core.views import IndexView, VoteView
+from core.views.voting import IndexView, VoteView
 
 
 def get_hit_list():

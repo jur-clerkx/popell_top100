@@ -1,8 +1,8 @@
 from django import forms
 
 from core.models.voting import VoteSubmission
-from core.models.tracks import Track
-from core.services.tracks import TrackService
+from core.models.music import Track
+from core.services.music import TrackService
 from core.services.voting import VoteSubmissionService
 from core.widgets import TrackSelectWidget
 

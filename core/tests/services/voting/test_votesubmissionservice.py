@@ -2,7 +2,7 @@ from django.test import TestCase
 from datetime import datetime, timedelta
 
 from core.models.voting import VoteSubmission, HitList, Vote
-from core.models.tracks import Track
+from core.models.music import Track
 from core.services.voting import VoteSubmissionService
 
 
@@ -16,7 +16,7 @@ def setup_hitlist():
     )
 
 
-class VoteSubmissionTests(TestCase):
+class VoteSubmissionServiceTests(TestCase):
     def test_create_vote_submission_without_hitlist(self):
         with self.assertRaises(Exception):
             VoteSubmissionService.create_vote_submission(

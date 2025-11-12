@@ -43,10 +43,12 @@ class Track(models.Model):
 
     @property
     def artist_string(self) -> str:
-        return artist_list(self.artists.all())
+        return artist_list(self.artists.all().order_by("name"))
 
     @staticmethod
-    def find_by_uri_or_title(spotify_uri: Optional[str], title: Optional[str]) -> Optional["Track"]:
+    def find_by_uri_or_title(
+        spotify_uri: Optional[str], title: Optional[str]
+    ) -> Optional["Track"]:
         track = None
         if spotify_uri:
             track = Track.objects.filter(spotify_uri=spotify_uri).first()
@@ -56,11 +58,10 @@ class Track(models.Model):
 
     @property
     def full_track_string(self):
-        return self.title + " - " + artist_list(self.artists.all())
+        return self.title + " - " + self.artist_string
 
     def __str__(self):
-        result = self.title + " - " + artist_list(self.artists.all())
+        result = self.title + " - " + self.artist_string
         if self.is_non_spotify:
             result += " (Non Spotify)"
         return result
-

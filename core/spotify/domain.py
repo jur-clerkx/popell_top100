@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import List
-import core.models.tracks as models
+import core.models.music as models
 
 
 @dataclass
@@ -45,12 +45,10 @@ class Track:
         return Track(
             str(model.id),
             model.title,
-            list(
-                map(
-                    lambda artist: Artist(str(artist.id), artist.name, ""),
-                    model.artists.all(),
-                )
-            ),
+            [
+                Artist(str(artist.id), artist.name, "")
+                for artist in model.artists.all()
+            ],
             model.image_url if model.image_url else "",
             "",
             model.preview_url if model.preview_url else "",

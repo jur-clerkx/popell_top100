@@ -5,7 +5,7 @@ from django.db import transaction
 
 from core.exceptions import NoOpenHitListException
 from core.models.voting import HitList, VoteSubmission, Vote
-from core.services.tracks import TrackService
+from core.services.music import TrackService
 from core.spotify import spotify
 
 

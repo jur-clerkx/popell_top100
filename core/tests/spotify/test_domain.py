@@ -1,5 +1,5 @@
 from django.test import TestCase
-from core.models import tracks as models
+from core.models import music as models
 from core.spotify.domain import Track, Artist
 
 

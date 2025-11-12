@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from core.models.voting import HitList, VoteSubmission, Vote
-from core.models.tracks import Artist, Track
+from core.models.music import Artist, Track
 from core.models.settings import HitListSettings
 
 admin.site.register(HitList)
