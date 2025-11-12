@@ -4,6 +4,9 @@ from core.models.tracks import Artist, Track
 from core.models.voting import Vote
 from core.spotify import spotify
 
+from rapidfuzz.fuzz import QRatio
+from thefuzz import process  # type: ignore
+
 
 class ArtistService:
     @staticmethod
@@ -87,3 +90,20 @@ class TrackService:
             vote.track = to_track
             vote.save()
         from_track.delete()
+
+
+class SimilarTrackService:
+    @staticmethod
+    def get_similar_tracks() -> list[tuple[str, str, int]]:
+        track_names = [t.full_track_string for t in Track.objects.all()]
+        results = []
+        for track_name in track_names:
+            match_list = list(track_names)
+            match_list.remove(track_name)
+            fuzz = process.extract(
+                track_name, match_list, scorer=QRatio, limit=3
+            )
+            for match_name, score in fuzz:
+                if score > 70:
+                    results.append((track_name, match_name, score))
+        return results

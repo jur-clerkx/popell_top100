@@ -1,5 +1,5 @@
 from django.forms import DateTimeInput
-from django_select2 import forms as s2forms
+from django_select2 import forms as s2forms  # type: ignore
 
 
 class CustomDateTimeInput(DateTimeInput):

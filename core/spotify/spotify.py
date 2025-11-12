@@ -1,6 +1,6 @@
 import os
 
-from spotipy import Spotify, SpotifyClientCredentials, SpotifyOAuth
+from spotipy import Spotify, SpotifyClientCredentials, SpotifyOAuth  # type: ignore
 
 from core.spotify.domain import Track, Artist
 from core.models import tracks as models

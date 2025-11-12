@@ -16,7 +16,7 @@ class SettingsService:
         current_settings = HitListSettings.objects.first()
         if current_settings is None:
             current_settings = HitListSettings()
-            current_settings.current_hitlist = HitList.objects.first()
+            current_settings.current_hitlist = HitList.objects.first()  # type: ignore
             current_settings.save()
         return current_settings
 

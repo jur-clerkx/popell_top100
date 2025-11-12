@@ -43,11 +43,11 @@ class Track:
     @staticmethod
     def from_model(model: models.Track) -> "Track":
         return Track(
-            model.id,
+            str(model.id),
             model.title,
             list(
                 map(
-                    lambda artist: Artist(artist.id, artist.name, ""),
+                    lambda artist: Artist(str(artist.id), artist.name, ""),
                     model.artists.all(),
                 )
             ),

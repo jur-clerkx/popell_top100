@@ -1,6 +1,6 @@
 import datetime
 
-import django_excel
+import django_excel  # type: ignore
 from django.db import transaction
 
 from core.exceptions import NoOpenHitListException
@@ -12,7 +12,10 @@ from core.spotify import spotify
 class HitListService:
     @staticmethod
     def get_by_year(year: int) -> HitList:
-        return HitList.objects.filter(vote_start_date__year=year).first()
+        hitlist = HitList.objects.filter(vote_start_date__year=year).first()
+        if hitlist is None:
+            raise NoOpenHitListException(f"No hitlist found for year {year}")
+        return hitlist
 
     @staticmethod
     def create_spotify_list(hitlist: HitList, access_token: str):

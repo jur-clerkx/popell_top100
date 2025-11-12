@@ -147,7 +147,9 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 def traces_sampler(sampling_context: dict) -> int:
     if sampling_context.get(
         "wsgi_environ"
-    ) and "FreshpingBot" in sampling_context.get("wsgi_environ").get(
+    ) and "FreshpingBot" in sampling_context.get(
+        "wsgi_environ"
+    ).get(  # type: ignore
         "HTTP_USER_AGENT"
     ):
         return 0
