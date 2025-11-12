@@ -1,9 +1,8 @@
 from datetime import datetime, timedelta
 from django.test import TestCase
 
-from core.models.settings import HitListSettings
 from core.models.voting import HitList
-from core.services.settings import SettingsService
+from core.services.settings import COOKIE_VALUE, SettingsService
 
 
 class SettingsServiceTests(TestCase):
@@ -17,40 +16,37 @@ class SettingsServiceTests(TestCase):
         )
         return hitlist
 
-    def test_get_settings_creates_default_with_existing_hitlist(self):
-        # Ensure there is a HitList in DB
+    def test_set_current_hitlist_stores_in_session(self):
         hl = self._create_hitlist("Test HitList")
-        # Make sure no settings exist
-        HitListSettings.objects.all().delete()
-
-        settings = SettingsService.get_settings()
-        self.assertIsNotNone(settings)
-        # current_hitlist should be set to the first HitList (the one we created)
-        self.assertIsNotNone(settings.current_hitlist)
-        self.assertEqual(settings.current_hitlist.pk, hl.pk)
-
-    def test_get_current_hitlist_returns_assigned(self):
-        hl = self._create_hitlist("Test HitList")
-        # Create settings explicitly pointing to our hitlist
-        hs = HitListSettings.objects.create(current_hitlist=hl)
-        current = SettingsService.get_current_hitlist()
-        self.assertEqual(current.pk, hs.current_hitlist.pk)
-        self.assertEqual(current.pk, hl.pk)
-
-    def test_set_current_hitlist_updates(self):
-        first = self._create_hitlist("First HitList")
-        second = self._create_hitlist("Second HitList")
-        # Ensure settings exist and point to first
-        hs = HitListSettings.objects.create(current_hitlist=first)
-        SettingsService.set_current_hitlist(second)
-
-        hs.refresh_from_db()
-        self.assertEqual(hs.current_hitlist.pk, second.pk)
+        request = self._create_request()
+        SettingsService.set_current_hitlist(request, hl)
+        self.assertEqual(request.session[COOKIE_VALUE], hl.id)
 
     def test_set_current_hitlist_with_none_does_nothing(self):
+        request = self._create_request()
+        request.session[COOKIE_VALUE] = 999
+        SettingsService.set_current_hitlist(request, None)
+        self.assertEqual(request.session[COOKIE_VALUE], 999)
+
+    def test_get_current_hitlist_returns_from_session(self):
         hl = self._create_hitlist("Test HitList")
-        hs = HitListSettings.objects.create(current_hitlist=hl)
-        SettingsService.set_current_hitlist(None)
-        hs.refresh_from_db()
-        # should remain unchanged
-        self.assertEqual(hs.current_hitlist.pk, hl.pk)
+        request = self._create_request()
+        request.session[COOKIE_VALUE] = hl.id
+        current = SettingsService.get_current_hitlist(request)
+        self.assertEqual(current.pk, hl.pk)
+
+    def test_get_current_hitlist_fallback_to_first_when_missing(self):
+        hl = self._create_hitlist("First HitList")
+        request = self._create_request()
+        # session key not set or None
+        current = SettingsService.get_current_hitlist(request)
+        self.assertEqual(current.pk, hl.pk)
+        self.assertEqual(request.session[COOKIE_VALUE], hl.id)
+
+    def _create_request(self):
+        from django.test import RequestFactory
+
+        factory = RequestFactory()
+        req = factory.get("/")
+        req.session = {}
+        return req

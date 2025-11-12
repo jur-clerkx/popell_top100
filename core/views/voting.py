@@ -55,7 +55,7 @@ class VoteView(OpenHitListRequiredMixin, View):
             self.template_name,
             {
                 "voteForm": form,
-                "hitlist": SettingsService.get_current_hitlist(),
+                "hitlist": HitListService.get_current_hitlist(),
             },
         )
 

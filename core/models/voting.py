@@ -1,10 +1,9 @@
 import datetime
 import uuid
 
-from django.db import models, transaction
+from django.db import models
 from django.db.models import Count, Sum, Min
 
-from core.models.settings import HitListSettings
 from core.models.music import Track
 
 

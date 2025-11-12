@@ -32,10 +32,16 @@ logger = logging.getLogger(__name__)
 class DashboardView(LoginRequiredMixin, TemplateView):
     template_name = "dashboard/index.html"
 
+    def get(self, request, *args, **kwargs):
+        if "list" in request.GET:
+            hitlist = get_object_or_404(HitList, id=request.GET["list"])
+            SettingsService.set_current_hitlist(request, hitlist)
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
         ctx["hitlists"] = HitList.objects.all()
-        ctx["hitlist"] = SettingsService.get_current_hitlist()
+        ctx["hitlist"] = SettingsService.get_current_hitlist(self.request)
         ctx["vote_count"] = VoteSubmission.objects.filter(
             hit_list=ctx["hitlist"], is_invalidated=False
         ).count()

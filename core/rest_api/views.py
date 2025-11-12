@@ -18,7 +18,7 @@ class CurrentHitListView(generics.RetrieveAPIView):
     serializer_class = HitListSerializer
 
     def get_object(self):
-        return SettingsService.get_current_hitlist()
+        return SettingsService.get_current_hitlist(self.request)
 
     def get_queryset(self):
         return HitList.objects.all()
