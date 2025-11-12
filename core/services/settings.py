@@ -1,29 +1,27 @@
+from typing import Optional
 from django.db import transaction
 
-from core.models.settings import HitListSettings
 from core.models.voting import HitList
+from django.http import HttpRequest
+
+COOKIE_VALUE = "dashboard_hitlist_id"
 
 
 class SettingsService:
     @staticmethod
     @transaction.atomic
-    def get_current_hitlist() -> "HitList":
-        return SettingsService.get_settings().current_hitlist
+    def get_current_hitlist(request: HttpRequest) -> Optional[HitList]:
+        hitlist_id = request.session.get(COOKIE_VALUE)
+        if hitlist_id is None:
+            hitlist = HitList.objects.first()
+            SettingsService.set_current_hitlist(request, hitlist)
+            return hitlist
+        return HitList.objects.get(id=hitlist_id)
 
     @staticmethod
     @transaction.atomic
-    def get_settings() -> "HitListSettings":
-        current_settings = HitListSettings.objects.first()
-        if current_settings is None:
-            current_settings = HitListSettings()
-            current_settings.current_hitlist = HitList.objects.first()  # type: ignore
-            current_settings.save()
-        return current_settings
-
-    @staticmethod
-    @transaction.atomic
-    def set_current_hitlist(hitlist: "HitList") -> None:
+    def set_current_hitlist(
+        request: HttpRequest, hitlist: Optional[HitList]
+    ) -> None:
         if hitlist is not None:
-            settings = SettingsService.get_settings()
-            settings.current_hitlist = hitlist
-            settings.save()
+            request.session[COOKIE_VALUE] = str(hitlist.id)
