@@ -1,3 +1,4 @@
+from typing import Optional
 from django.db import models, transaction
 
 from core.models.music import Artist, Track
@@ -57,6 +58,10 @@ class TrackService:
                 artists.append(
                     ArtistService.get_or_create_artist_by_uri(artist_json.id)
                 )
+            if existing_track := TrackService.find_track_by_title_and_artists(
+                title=track_json.track_name, artists=artists
+            ):
+                return existing_track
             track = Track(
                 title=track_json.track_name,
                 spotify_uri=track_json.id,
@@ -69,6 +74,24 @@ class TrackService:
             for artist in artists:
                 track.artists.add(artist)
             return track
+
+    @staticmethod
+    @transaction.atomic
+    def find_track_by_title_and_artists(
+        title: str, artists: list[Artist]
+    ) -> Optional[Track]:
+        tracks = Track.objects.filter(title=title)
+        for track in tracks:
+            track_artists = list(track.artists.all())
+            if len(track_artists) != len(artists):
+                continue
+            artist_names_in_track = sorted(
+                [artist.name for artist in track_artists]
+            )
+            artist_names_to_check = sorted([artist.name for artist in artists])
+            if artist_names_in_track == artist_names_to_check:
+                return track
+        return None
 
     @staticmethod
     @transaction.atomic
