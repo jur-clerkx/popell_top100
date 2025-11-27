@@ -12,10 +12,21 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pip3 install --user pipenv && pipenv install --dev && pipenv run pre-commit install"
+	"postCreateCommand": "pip3 install --user pipenv && PIPENV_VENV_IN_PROJECT=1 pipenv sync --dev && pipenv run pre-commit install",
 
 	// Configure tool-specific properties.
-	// "customizations": {},
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.pythonPath": "/.venv/bin/python",
+				"python.formatting.provider": "black",
+				"python.linting.flake8Enabled": true,
+				"python.linting.flake8Args": [
+					"--max-line-length=120"
+				]
+			}
+		}
+	}
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"1
