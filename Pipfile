@@ -5,7 +5,7 @@ name = "pypi"
 
 [packages]
 django = "~=4.2"
-spotipy = "~=2.2"
+spotipy = "~=2.25"
 django-crispy-forms = "~=1.14"
 django-select2 = "~=8.0"
 crispy_bootstrap5 = "*"
