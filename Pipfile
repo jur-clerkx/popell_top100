@@ -24,7 +24,7 @@ thefuzz = "*"
 django-debug-toolbar = "~=3.6"
 black = "~=24.3"
 pre-commit = "*"
-flake8 = "~=5.0"
+flake8 = "~=7.3"
 coverage = "*"
 mypy = "*"
 django-stubs = {extras = ["compatible-mypy"], version = "*"}
