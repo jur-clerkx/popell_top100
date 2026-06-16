@@ -4,16 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "~=4.2"
-spotipy = "~=2.2"
-django-crispy-forms = "~=1.14"
-django-select2 = "~=8.0"
+django = "~=6.0"
+spotipy = "~=2.26"
+django-crispy-forms = "~=2.6"
+django-select2 = "~=8.4"
 crispy_bootstrap5 = "*"
 sentry-sdk = "*"
-psycopg2 = "*"
+psycopg2-binary = "*"
 django-tinymce = "*"
 djangorestframework = "*"
-django-cors-headers = "~=3.13"
+django-cors-headers = "~=4.9"
 django-excel = "*"
 pyexcel-xlsx = "*"
 async-timeout = "*"
@@ -21,14 +21,14 @@ setuptools = "*"
 thefuzz = "*"
 
 [dev-packages]
-django-debug-toolbar = "~=3.6"
-black = "~=24.3"
+django-debug-toolbar = "~=6.3"
+black = "~=26.5"
 pre-commit = "*"
-flake8 = "~=5.0"
+flake8 = "~=7.3"
 coverage = "*"
 mypy = "*"
 django-stubs = {extras = ["compatible-mypy"], version = "*"}
 djangorestframework-stubs = {extras = ["compatible-mypy"], version = "*"}
 
 [requires]
-python_version = "3.13"
+python_version = "3.14"
