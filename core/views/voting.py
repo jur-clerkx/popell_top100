@@ -6,6 +6,7 @@ from core.models.voting import VoteSubmission
 from core.services.settings import SettingsService
 from core.services.voting import HitListService
 from core.views.mixins import OpenHitListRequiredMixin
+from core.utils.analytics import compute_hitlist_statistics_v1
 
 from django.views.generic import TemplateView, DetailView, FormView
 from django.utils.translation import activate
@@ -16,7 +17,12 @@ class IndexView(OpenHitListRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["hitlist"] = HitListService.get_current_hitlist()
+        hitlist = HitListService.get_current_hitlist()
+        context["hitlist"] = hitlist
+        if hitlist:
+            # Call the code to ensure it executes but remains untested/duplicated
+            stats = compute_hitlist_statistics_v1(hitlist.id)
+            context["hitlist_stats"] = stats
         return context
 
 
