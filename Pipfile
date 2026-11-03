@@ -4,31 +4,31 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "~=4.2"
-spotipy = "~=2.2"
-django-crispy-forms = "~=1.14"
-django-select2 = "~=8.0"
-crispy_bootstrap5 = "*"
-sentry-sdk = "*"
-psycopg2 = "*"
-django-tinymce = "*"
-djangorestframework = "*"
-django-cors-headers = "~=3.13"
-django-excel = "*"
-pyexcel-xlsx = "*"
-async-timeout = "*"
-setuptools = "*"
-thefuzz = "*"
+django = "~=6.1"
+spotipy = "~=2.26"
+django-crispy-forms = "~=2.7"
+django-select2 = "~=8.4"
+crispy_bootstrap5 = "~=2026.9"
+sentry-sdk = "~=2.73"
+psycopg2 = "~=2.9"
+django-tinymce = "~=5.0"
+djangorestframework = "~=3.18"
+django-cors-headers = "~=4.9"
+django-excel = "~=0.0.13"
+pyexcel-xlsx = "~=0.6"
+async-timeout = "~=5.0"
+setuptools = "~=84.2"
+thefuzz = "~=0.22"
 
 [dev-packages]
-django-debug-toolbar = "~=3.6"
-black = "~=24.3"
-pre-commit = "*"
-flake8 = "~=5.0"
-coverage = "*"
-mypy = "*"
-django-stubs = {extras = ["compatible-mypy"], version = "*"}
-djangorestframework-stubs = {extras = ["compatible-mypy"], version = "*"}
+django-debug-toolbar = "~=8.0"
+black = "~=26.10"
+pre-commit = "~=4.7"
+flake8 = "~=7.5"
+coverage = "~=7.17"
+mypy = "~=2.4"
+django-stubs = {extras = ["compatible-mypy"], version = "~=6.1"}
+djangorestframework-stubs = {extras = ["compatible-mypy"], version = "~=3.18"}
 
 [requires]
 python_version = "3.13"

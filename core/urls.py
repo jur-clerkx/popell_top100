@@ -4,7 +4,6 @@ from django.urls import path
 import core.views.dashboard as dashboard_views
 import core.views.voting as voting_views
 
-
 app_name = "core"
 urlpatterns = [
     path("", voting_views.IndexView.as_view(), name="index"),
