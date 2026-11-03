@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>De lijst is gesloten</h1>
-    <p>Helaas is het niet mogelijk om op dit moment te stemmen. De lijst is al gesloten.</p>
+    <div class="flex flex-col items-center text-center py-6">
+        <span class="px-3 py-1 rounded-full bg-red-950/70 border border-red-700/60 text-red-300 text-xs uppercase tracking-wider font-semibold mb-4">
+            Stemronde Gesloten
+        </span>
+        <h1 class="font-rock-display text-4xl sm:text-6xl text-white uppercase tracking-wide mb-3">De lijst is gesloten</h1>
+        <p class="font-sub text-stone-300 text-base sm:text-lg max-w-lg mb-0">
+            Helaas is het niet mogelijk om op dit moment te stemmen. De lijst is al gesloten. Tot ziens bij Café Bie Leike!
+        </p>
+    </div>
 {% endblock %}

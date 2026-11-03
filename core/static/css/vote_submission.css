@@ -1,49 +1,91 @@
+.submission-track-card {
+    background-color: rgba(20, 18, 16, 0.85);
+    border: 1.5px solid rgba(68, 64, 60, 0.85);
+    border-radius: 0.875rem;
+    padding: 1.125rem 1.25rem;
+    transition: border-color 0.2s ease;
+}
+
+.submission-track-card.submission-track-top {
+    border-color: rgba(245, 158, 11, 0.55);
+    background: linear-gradient(135deg, rgba(28, 25, 23, 0.95), rgba(41, 30, 16, 0.45));
+}
+
 .vote_container {
-    display: grid;
-    grid-template-columns: auto 2fr;
-    gap: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
 }
 
 .vote_track_image {
-    width: 100%;
-    max-width: 200px;
-    min-width: 50px;
-    margin: auto;
-    grid-row-start: 1;
-    grid-row-end: 3;
+    width: 88px;
+    height: 88px;
+    border-radius: 0.625rem;
+    object-fit: cover;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.vote_track_fallback {
+    width: 88px;
+    height: 88px;
+    border-radius: 0.625rem;
+    background-color: #1c1917;
+    border: 1.5px solid rgba(245, 158, 11, 0.4);
+    color: #f59e0b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: 800;
+    flex-shrink: 0;
+}
+
+.vote_track_info {
+    flex: 1;
+    min-width: 0;
 }
 
 .vote_track_name {
-    font-size: 2em;
-    font-weight: bold;
-    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 0 0 0.2rem 0;
+    line-height: 1.25;
 }
 
 .vote_artist {
-    font-size: 1.25em;
+    font-size: 0.95rem;
+    color: #fbbf24;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    margin: 0 0 0.65rem 0;
 }
 
 .vote_track_preview {
-    grid-row-start: 2;
-    grid-column-start: 2;
+    width: 100%;
+    max-width: 360px;
+    height: 36px;
+    border-radius: 0.5rem;
 }
 
 @media (max-width: 576px) {
+    .vote_container {
+        align-items: flex-start;
+        gap: 0.875rem;
+    }
+
+    .vote_track_image,
+    .vote_track_fallback {
+        width: 64px;
+        height: 64px;
+    }
+
     .vote_track_name {
-        font-size: 1em;
+        font-size: 1.05rem;
     }
 
     .vote_artist {
-        font-size: 0.75em;
-    }
-
-    .vote_track_image {
-        grid-row-end: 2;
-    }
-
-    .vote_track_preview {
-        grid-row-start: 2;
-        grid-column-start: 1;
-        grid-column-end: 3;
+        font-size: 0.82rem;
     }
 }

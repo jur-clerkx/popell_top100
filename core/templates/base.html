@@ -1,40 +1,134 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="nl">
+<html class="h-full bg-stone-950" lang="nl">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Top 100{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            corePlugins: {
+                preflight: false,
+            },
+            theme: {
+                extend: {
+                    colors: {
+                        'popell-yellow': '#FACC15',
+                        'popell-pink': '#FB7185',
+                        'popell-blue': '#38BDF8',
+                        'amber-glow': '#F59E0B',
+                        'pub-dark': '#0c0a09'
+                    },
+                    fontFamily: {
+                        'rock': ['"Oswald"', '"Anton"', '"Impact"', 'sans-serif'],
+                        'rock-display': ['"Anton"', '"Impact"', 'sans-serif'],
+                        'sub': ['"Space Grotesk"', '"Outfit"', 'sans-serif'],
+                        'body': ['"Inter"', 'system-ui', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
     <link rel="icon" type="image/png" href="{% static 'img/favicon.png' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Outfit:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <link href="{% static 'css/base.css' %}" rel="stylesheet">
     <link href="{% static 'css/logo.css' %}" rel="stylesheet">
     {% if hitlist and hitlist.theme == 'carnaval' %}
         <link href="{% static 'css/carnaval.css' %}" rel="stylesheet">
     {% endif %}
-    {% block head %} {% endblock %}
+    {% block head %}{% endblock %}
 </head>
-<body>
-<div class="col-lg-10 mx-auto pt-4 py-md-5">
-    <header class="pb-3 mb-4 border-bottom">
-        <div class="logo">
-            <span class="logo_stichting">STICHTING</span>
-            <span class="logo_popell">POPELL</span>
+<body class="min-h-screen pub-vibe-bg text-stone-100 flex flex-col justify-between overflow-x-hidden selection:bg-amber-500 selection:text-black antialiased relative">
+    <!-- Top Warm Stage Spotlight Glow -->
+    <div aria-hidden="true" class="stage-light-cone"></div>
+
+    <!-- Christmas fairy lights hanging overlay (Rock pub holiday tradition) -->
+    <aside aria-label="Kerstverlichting sfeerdecoratie" class="fairy-lights-banner">
+        <span class="fairylight-bulb bulb-amber animate-pulse"></span>
+        <span class="fairylight-bulb bulb-red"></span>
+        <span class="fairylight-bulb bulb-emerald animate-pulse"></span>
+        <span class="fairylight-bulb bulb-amber-soft"></span>
+        <span class="fairylight-bulb bulb-sky"></span>
+        <span class="fairylight-bulb bulb-red animate-pulse"></span>
+        <span class="fairylight-bulb bulb-amber"></span>
+        <span class="fairylight-bulb bulb-emerald"></span>
+        <span class="fairylight-bulb bulb-red animate-pulse"></span>
+    </aside>
+
+    <!-- BEGIN: MainContentWrapper -->
+    <main class="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-8 flex-1 flex flex-col justify-center items-center">
+        <!-- BEGIN: BrandHeader -->
+        <header class="w-full flex flex-col items-center text-center mb-6 sm:mb-8" data-purpose="app-branding">
+            <a href="{% url 'core:index' %}" class="relative group p-2 inline-block text-decoration-none">
+                <div class="absolute inset-0 bg-amber-500/20 rounded-full blur-2xl group-hover:bg-amber-400/30 transition-all duration-700"></div>
+                <img alt="Stichting PopEll Logo"
+                     class="relative h-16 sm:h-20 md:h-24 w-auto object-contain popell-brand-logo"
+                     src="{% static 'img/popell-logo.png' %}">
+            </a>
+            <!-- Holiday & Rock Bar Edition Badges -->
+            <div class="mt-3 sm:mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs uppercase tracking-wider font-semibold">
+                <span class="px-3 py-1 rounded bg-stone-900/90 border border-stone-700/80 text-amber-400 shadow-md backdrop-blur-sm flex items-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 fill-current text-amber-400" viewBox="0 0 24 24">
+                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+                    </svg>
+                    35e Editie
+                </span>
+                <span class="px-3 py-1 rounded bg-amber-950/60 border border-amber-600/50 text-amber-200 shadow-md backdrop-blur-sm">
+                    🎄 2e Kerstdag Live @ Café Bie Leike
+                </span>
+                <span class="px-2.5 py-1 rounded bg-stone-900/90 border border-stone-800 text-stone-300">
+                    Bachelorclub Ell
+                </span>
+            </div>
+        </header>
+        <!-- END: BrandHeader -->
+
+        <!-- BEGIN: StageCardContent -->
+        <div class="w-full content stage-card" data-purpose="stage-card">
+            <!-- Decorative brass amplifier corner protectors -->
+            <div class="amp-corner amp-corner-tl" aria-hidden="true"></div>
+            <div class="amp-corner amp-corner-tr" aria-hidden="true"></div>
+            <div class="amp-corner amp-corner-bl" aria-hidden="true"></div>
+            <div class="amp-corner amp-corner-br" aria-hidden="true"></div>
+            <!-- Subtle internal amplifier mesh pattern -->
+            <div class="amp-mesh-overlay" aria-hidden="true"></div>
+            <!-- Stage spotlight rim line -->
+            <div class="stage-rim-line" aria-hidden="true"></div>
+
+            <div class="relative z-10">
+                {% block content %}{% endblock %}
+            </div>
         </div>
-    </header>
-    <div class="content">
-        {% block content %}<!-- default content text (typically empty) -->{% endblock %}
-    </div>
-    <footer class="py-3 mt-4 border-top footer bottom">
-        <p class="text-center">Bij elkaar gecomputerd door <a href="https://github.com/jur-clerkx/">@jur-clerkx</a>
-            & <a href="https://github.com/KaiCorstjens/">@KaiCorstjens</a></p>
+        <!-- END: StageCardContent -->
+    </main>
+    <!-- END: MainContentWrapper -->
+
+    <!-- BEGIN: AppFooterCredits -->
+    <footer class="relative z-10 w-full border-t border-stone-800/60 bg-stone-950/90 backdrop-blur-sm py-4 px-4 text-center footer" data-purpose="app-credits">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-stone-400">
+            <div class="flex items-center gap-1.5 text-stone-400">
+                <span>📍</span>
+                <span>Café Bie Leike / Bachelorclub Ell</span>
+            </div>
+            <div class="text-stone-300">
+                Bij elkaar gecomputerd door
+                <a class="text-amber-400 hover:text-amber-300 hover:underline transition-colors font-medium"
+                   href="https://github.com/jur-clerkx/" rel="noopener noreferrer" target="_blank">@jur-clerkx</a>
+                <span class="text-stone-400">&amp;</span>
+                <a class="text-amber-400 hover:text-amber-300 hover:underline transition-colors font-medium"
+                   href="https://github.com/KaiCorstjens/" rel="noopener noreferrer" target="_blank">@KaiCorstjens</a>
+            </div>
+            <div class="text-stone-400">
+                Top 100 © 2026
+            </div>
+        </div>
     </footer>
-</div>
+    <!-- END: AppFooterCredits -->
 </body>
 </html>
