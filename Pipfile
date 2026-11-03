@@ -19,6 +19,8 @@ pyexcel-xlsx = "~=0.6"
 async-timeout = "~=5.0"
 setuptools = "~=84.2"
 thefuzz = "~=0.22"
+gunicorn = "~=26.2"
+whitenoise = "~=6.12"
 
 [dev-packages]
 django-debug-toolbar = "~=8.0"

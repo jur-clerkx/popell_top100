@@ -20,3 +20,12 @@ CSRF_TRUSTED_ORIGINS = [
     "https://top100.stichtingpopell.nl",
     "https://top100.moerebuuk.nl",
 ]
+
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
+    },
+}
