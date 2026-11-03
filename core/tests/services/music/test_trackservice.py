@@ -5,6 +5,25 @@ from core.models.music import Artist, Track
 from core.services.music import TrackService
 
 
+def _mock_artist(uri: str):
+    artist = MagicMock()
+    artist.id = uri
+    artist.name = f"Artist {uri}"
+    artist.spotify_url = f"https://open.spotify.com/artist/{uri}"
+    return artist
+
+
+def _mock_track(uri: str):
+    track = MagicMock()
+    track.id = uri
+    track.track_name = f"Track {uri}"
+    track.spotify_url = f"https://open.spotify.com/track/{uri}"
+    track.preview_url = f"https://p.scdn.co/mp3-preview/{uri}"
+    track.image = f"https://i.scdn.co/image/{uri}"
+    track.track_artists = [_mock_artist(f"spotify:artist:{uri}")]
+    return track
+
+
 class TrackServiceTests(TestCase):
     def test_create_track_with_incorrect_spotify_uri(self):
         with self.assertRaises(Exception):
@@ -13,7 +32,11 @@ class TrackServiceTests(TestCase):
             0, Track.objects.count(), "Track shouldn't be created!"
         )
 
-    def test_create_track_correct_spotify_uri(self):
+    @patch("core.spotify.spotify.get_artist_by_uri", side_effect=_mock_artist)
+    @patch("core.spotify.spotify.get_track_by_uri", side_effect=_mock_track)
+    def test_create_track_correct_spotify_uri(
+        self, _mock_get_track_by_uri, _mock_get_artist_by_uri
+    ):
         TrackService.get_or_create_song_by_uri(
             "spotify:track:4uUG5RXrOk84mYEfFvj3cK"
         )
@@ -27,7 +50,11 @@ class TrackServiceTests(TestCase):
             2, Track.objects.count(), "Track should be saved to database!"
         )
 
-    def test_track_is_only_created_once(self):
+    @patch("core.spotify.spotify.get_artist_by_uri", side_effect=_mock_artist)
+    @patch("core.spotify.spotify.get_track_by_uri", side_effect=_mock_track)
+    def test_track_is_only_created_once(
+        self, _mock_get_track_by_uri, _mock_get_artist_by_uri
+    ):
         TrackService.get_or_create_song_by_uri(
             "spotify:track:4uUG5RXrOk84mYEfFvj3cK"
         )
