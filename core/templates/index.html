@@ -1,35 +1,39 @@
 {% extends 'base.html' %}
 {% block title %}{{ hitlist.name }} - Stichting PopEll Stem App{% endblock %}
 {% block content %}
-<div class="w-full flex items-center justify-between py-1.5 px-3 mb-5 bg-stone-900/90 border border-amber-600/30 rounded-lg text-[11px] sm:text-xs tracking-wider text-amber-200 font-semibold uppercase select-none">
-    <span class="flex items-center gap-1.5 whitespace-nowrap">🎄 <span>KERSTTOP 100<span class="hidden sm:inline"> ROCK TRADITIE</span></span></span>
-    <span class="text-stone-400 hidden md:inline-block font-mono text-[11px] whitespace-nowrap">BEUGELS • GITAREN • STEMMEN</span>
+<div
+    class="w-full flex items-center justify-between py-1.5 px-3 mb-5 bg-stone-900/90 border border-amber-600/30 rounded-lg text-[11px] sm:text-xs tracking-wider text-amber-200 font-semibold uppercase select-none">
+    <span class="flex items-center gap-1.5 whitespace-nowrap">🎄 <span>KERSTTOP 100<span class="hidden sm:inline"> ROCK
+                TRADITIE</span></span></span>
     <span class="flex items-center gap-1 whitespace-nowrap">🔔 <span>CAFÉ BIE LEIKE</span></span>
 </div>
 
 <div class="flex flex-col items-center text-center welcome-hero">
     <h1>{{ hitlist.name }}</h1>
 
-    <div class="font-sub text-base sm:text-xl text-stone-200 max-w-xl font-normal leading-relaxed mt-2 mb-6 welcome-description">
+    <div
+        class="font-sub text-base sm:text-xl text-stone-200 max-w-xl font-normal leading-relaxed mt-2 mb-6 welcome-description">
         {{ hitlist.description | safe }}
         <p class="text-sm sm:text-base text-stone-300 mt-2 mb-0">
-            Stem nu op jouw <span class="text-amber-400 font-semibold underline decoration-amber-500/60 decoration-2 underline-offset-4">5 favoriete rock- &amp; caféklassiekers</span> voor het legendarische feest op Tweede Kerstdag.
+            Stem nu op jouw <span
+                class="text-amber-400 font-semibold underline decoration-amber-500/60 decoration-2 underline-offset-4">5
+                favoriete rock- &amp; caféklassiekers</span> voor het legendarische feest op Tweede Kerstdag.
         </p>
     </div>
 
     <!-- Primary Call to Action Button: 'Open stem formulier' -->
     <div class="w-full sm:w-auto flex flex-col items-center gap-3 mt-1">
-        <a id="open-stem-button"
-           href="{% url 'core:vote' %}"
-           data-purpose="open-vote-modal"
-           class="group btn-tactile-amber w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 text-xl sm:text-2xl">
+        <a id="open-stem-button" href="{% url 'core:vote' %}" data-purpose="open-vote-modal"
+            class="group btn-tactile-amber w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 text-xl sm:text-2xl">
             <!-- Guitar Pick Icon Accent -->
-            <svg class="w-6 h-6 text-stone-950 group-hover:rotate-12 transition-transform duration-300 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-stone-950 group-hover:rotate-12 transition-transform duration-300 shrink-0"
+                fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 2C6.5 2 2 8.5 4 14.5c1.5 4.5 6 7.5 8 7.5s6.5-3 8-7.5C22 8.5 17.5 2 12 2z"></path>
             </svg>
             <span class="whitespace-nowrap">Open stem formulier</span>
             <!-- Arrow cue -->
-            <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1 text-stone-950 shrink-0" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1 text-stone-950 shrink-0"
+                fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
             </svg>
         </a>
@@ -40,7 +44,8 @@
     </div>
 
     <!-- Pub Event Perks Strip -->
-    <div class="w-full mt-8 pt-6 border-t border-stone-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-stone-400 text-xs sm:text-sm">
+    <div
+        class="w-full mt-8 pt-6 border-t border-stone-800/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-stone-400 text-xs sm:text-sm">
         <div class="flex items-center justify-center gap-2">
             <span class="text-amber-400 font-bold">🍺</span>
             <span>Koud bier &amp; goeie muziek</span>

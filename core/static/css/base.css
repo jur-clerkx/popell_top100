@@ -11,6 +11,18 @@ html, body {
     margin: 0;
 }
 
+/*
+ * Tailwind's preflight is disabled (to keep Bootstrap intact), so restore its
+ * border reset: without it, Tailwind's `border` / `border-<color>` utilities
+ * fall back to browser defaults (inset style / near-white color).
+ * Low specificity, so Bootstrap component rules and Tailwind utilities still win.
+ */
+*, ::before, ::after {
+    border-width: 0;
+    border-style: solid;
+    border-color: #292524;
+}
+
 body.pub-vibe-bg {
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     background-color: #0b0908;
