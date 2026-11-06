@@ -8,85 +8,173 @@
     <meta property="og:title" content="Mijn {{ object.hit_list.name }} Inzending"/>
     <meta property="og:description" content="Bekijk de inzending van {{ object.submitter_name }}!"/>
     {% if hitlist.theme == 'rock' %}
-        <meta property="og:image" content="{% static 'img/popell_background.jpg' %}"/>
+        <meta property="og:image" content="{% static 'img/rock_pub_bg.png' %}"/>
     {% elif hitlist.theme == 'carnaval' %}
         <meta property="og:image" content="{% static 'img/carnaval-background.jpg' %}"/>
     {% endif %}
 {% endblock %}
 
-
-{% block title %}{{ object.hit_list.name }}{% endblock %}
+{% block title %}{{ object.hit_list.name }} - Inzending van {{ object.submitter_name }}{% endblock %}
 
 {% block content %}
     <!-- Facebook javascript SDK-->
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous" src="https://connect.facebook.net/nl_NL/sdk.js#xfbml=1&version=v15.0"
             nonce="4R8VAr9R"></script>
-    <h2 class="py-4 border-bottom">Inzending van {{ object.submitter_name }} voor {{ object.hit_list.name }}</h2>
-    <div class="fb-share-button" data-href="{{ request.path }}" data-layout="button"
-         data-size="large"><a target="_blank"
-                              href="https://www.facebook.com/sharer/sharer.php?u={{ request.path|urlencode }}&amp;src=sdkpreparse"
-                              class="fb-xfbml-parse-ignore">Delen</a></div>
-    <div class="vote_submission_container">
-        <h4>Nummer 1 (5 punten):</h4>
-        <div class="vote_container pb-4">
-            <img class="vote_track_image" src="{{ object.vote_set.all.0.track.image_url }}"
-                 alt="{{ object.vote_set.all.0.track.title }}"/>
-            <div>
-                <p class="vote_track_name">{{ object.vote_set.all.0.track.title }}</p>
-                <p class="vote_artist">{{ object.vote_set.all.0.track.artists.all | artist_list }}</p>
-            </div>
-            <audio class="vote_track_preview" controls>
-                <source src="{{ object.vote_set.all.0.track.preview_url }}">
-            </audio>
+
+    <div class="border-b border-stone-800/80 pb-5 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 text-xs font-semibold uppercase tracking-wider mb-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Stem Geregistreerd
+            </span>
+            <h2 class="font-rock text-2xl sm:text-4xl text-stone-100 font-bold uppercase tracking-wide m-0">
+                Inzending van <span class="text-amber-400">{{ object.submitter_name }}</span> voor {{ object.hit_list.name }}
+            </h2>
         </div>
-        <h4>Nummer 2 (4 punten):</h4>
-        <div class="vote_container pb-4">
-            <img class="vote_track_image" src="{{ object.vote_set.all.1.track.image_url }}"
-                 alt="{{ object.vote_set.all.1.track.title }}"/>
-            <div>
-                <p class="vote_track_name">{{ object.vote_set.all.1.track.title }}</p>
-                <p class="vote_artist">{{ object.vote_set.all.1.track.artists.all | artist_list }}</p>
-            </div>
-            <audio class="vote_track_preview" controls>
-                <source src="{{ object.vote_set.all.1.track.preview_url }}">
-            </audio>
+        <div class="fb-share-button shrink-0" data-href="{{ request.path }}" data-layout="button"
+             data-size="large">
+            <a target="_blank"
+               href="https://www.facebook.com/sharer/sharer.php?u={{ request.path|urlencode }}&amp;src=sdkpreparse"
+               class="fb-xfbml-parse-ignore btn-tactile-dark py-2 px-4 text-sm">Delen</a>
         </div>
-        <h4>Nummer 3 (3 punten):</h4>
-        <div class="vote_container pb-4">
-            <img class="vote_track_image" src="{{ object.vote_set.all.2.track.image_url }}"
-                 alt="{{ object.vote_set.all.2.track.title }}"/>
-            <div>
-                <p class="vote_track_name">{{ object.vote_set.all.2.track.title }}</p>
-                <p class="vote_artist">{{ object.vote_set.all.2.track.artists.all | artist_list }}</p>
+    </div>
+
+    <div class="vote_submission_container space-y-4">
+        <!-- Nummer 1 -->
+        <div class="submission-track-card submission-track-top">
+            <div class="flex items-center justify-between mb-3">
+                <h4 class="font-rock text-lg text-amber-400 uppercase tracking-wide flex items-center gap-2 m-0">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/40 text-xs font-bold">1</span>
+                    Nummer 1 (5 punten):
+                </h4>
+                <span class="text-xs font-mono uppercase tracking-wider px-2.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">★ Topkeuze</span>
             </div>
-            <audio class="vote_track_preview" controls>
-                <source src="{{ object.vote_set.all.2.track.preview_url }}">
-            </audio>
+            <div class="vote_container">
+                {% if object.vote_set.all.0.track.image_url %}
+                    <img class="vote_track_image" src="{{ object.vote_set.all.0.track.image_url }}"
+                         alt="{{ object.vote_set.all.0.track.title }}"/>
+                {% else %}
+                    <div class="vote_track_fallback">♫</div>
+                {% endif %}
+                <div class="vote_track_info">
+                    <p class="vote_track_name">{{ object.vote_set.all.0.track.title }}</p>
+                    <p class="vote_artist">{{ object.vote_set.all.0.track.artists.all | artist_list }}</p>
+                    {% if object.vote_set.all.0.track.preview_url %}
+                        <audio class="vote_track_preview" controls>
+                            <source src="{{ object.vote_set.all.0.track.preview_url }}">
+                        </audio>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <h4>Nummer 4 (2 punten):</h4>
-        <div class="vote_container pb-4">
-            <img class="vote_track_image" src="{{ object.vote_set.all.3.track.image_url }}"
-                 alt="{{ object.vote_set.all.3.track.title }}"/>
-            <div>
-                <p class="vote_track_name">{{ object.vote_set.all.3.track.title }}</p>
-                <p class="vote_artist">{{ object.vote_set.all.3.track.artists.all | artist_list }}</p>
+
+        <!-- Nummer 2 -->
+        <div class="submission-track-card">
+            <div class="flex items-center justify-between mb-3">
+                <h4 class="font-rock text-lg text-stone-200 uppercase tracking-wide flex items-center gap-2 m-0">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">2</span>
+                    Nummer 2 (4 punten):
+                </h4>
             </div>
-            <audio class="vote_track_preview" controls>
-                <source src="{{ object.vote_set.all.3.track.preview_url }}">
-            </audio>
+            <div class="vote_container">
+                {% if object.vote_set.all.1.track.image_url %}
+                    <img class="vote_track_image" src="{{ object.vote_set.all.1.track.image_url }}"
+                         alt="{{ object.vote_set.all.1.track.title }}"/>
+                {% else %}
+                    <div class="vote_track_fallback">♫</div>
+                {% endif %}
+                <div class="vote_track_info">
+                    <p class="vote_track_name">{{ object.vote_set.all.1.track.title }}</p>
+                    <p class="vote_artist">{{ object.vote_set.all.1.track.artists.all | artist_list }}</p>
+                    {% if object.vote_set.all.1.track.preview_url %}
+                        <audio class="vote_track_preview" controls>
+                            <source src="{{ object.vote_set.all.1.track.preview_url }}">
+                        </audio>
+                    {% endif %}
+                </div>
+            </div>
         </div>
-        <h4>Nummer 5 (1 punt):</h4>
-        <div class="vote_container pb-4">
-            <img class="vote_track_image" src="{{ object.vote_set.all.4.track.image_url }}"
-                 alt="{{ object.vote_set.all.4.track.title }}"/>
-            <div>
-                <p class="vote_track_name">{{ object.vote_set.all.4.track.title }}</p>
-                <p class="vote_artist">{{ object.vote_set.all.4.track.artists.all | artist_list }}</p>
+
+        <!-- Nummer 3 -->
+        <div class="submission-track-card">
+            <div class="flex items-center justify-between mb-3">
+                <h4 class="font-rock text-lg text-stone-200 uppercase tracking-wide flex items-center gap-2 m-0">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">3</span>
+                    Nummer 3 (3 punten):
+                </h4>
             </div>
-            <audio class="vote_track_preview" controls>
-                <source src="{{ object.vote_set.all.4.track.preview_url }}">
-            </audio>
+            <div class="vote_container">
+                {% if object.vote_set.all.2.track.image_url %}
+                    <img class="vote_track_image" src="{{ object.vote_set.all.2.track.image_url }}"
+                         alt="{{ object.vote_set.all.2.track.title }}"/>
+                {% else %}
+                    <div class="vote_track_fallback">♫</div>
+                {% endif %}
+                <div class="vote_track_info">
+                    <p class="vote_track_name">{{ object.vote_set.all.2.track.title }}</p>
+                    <p class="vote_artist">{{ object.vote_set.all.2.track.artists.all | artist_list }}</p>
+                    {% if object.vote_set.all.2.track.preview_url %}
+                        <audio class="vote_track_preview" controls>
+                            <source src="{{ object.vote_set.all.2.track.preview_url }}">
+                        </audio>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Nummer 4 -->
+        <div class="submission-track-card">
+            <div class="flex items-center justify-between mb-3">
+                <h4 class="font-rock text-lg text-stone-200 uppercase tracking-wide flex items-center gap-2 m-0">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">4</span>
+                    Nummer 4 (2 punten):
+                </h4>
+            </div>
+            <div class="vote_container">
+                {% if object.vote_set.all.3.track.image_url %}
+                    <img class="vote_track_image" src="{{ object.vote_set.all.3.track.image_url }}"
+                         alt="{{ object.vote_set.all.3.track.title }}"/>
+                {% else %}
+                    <div class="vote_track_fallback">♫</div>
+                {% endif %}
+                <div class="vote_track_info">
+                    <p class="vote_track_name">{{ object.vote_set.all.3.track.title }}</p>
+                    <p class="vote_artist">{{ object.vote_set.all.3.track.artists.all | artist_list }}</p>
+                    {% if object.vote_set.all.3.track.preview_url %}
+                        <audio class="vote_track_preview" controls>
+                            <source src="{{ object.vote_set.all.3.track.preview_url }}">
+                        </audio>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Nummer 5 -->
+        <div class="submission-track-card">
+            <div class="flex items-center justify-between mb-3">
+                <h4 class="font-rock text-lg text-stone-200 uppercase tracking-wide flex items-center gap-2 m-0">
+                    <span class="flex items-center justify-center w-6 h-6 rounded-full bg-stone-800 text-stone-300 border border-stone-700 text-xs font-bold">5</span>
+                    Nummer 5 (1 punt):
+                </h4>
+            </div>
+            <div class="vote_container">
+                {% if object.vote_set.all.4.track.image_url %}
+                    <img class="vote_track_image" src="{{ object.vote_set.all.4.track.image_url }}"
+                         alt="{{ object.vote_set.all.4.track.title }}"/>
+                {% else %}
+                    <div class="vote_track_fallback">♫</div>
+                {% endif %}
+                <div class="vote_track_info">
+                    <p class="vote_track_name">{{ object.vote_set.all.4.track.title }}</p>
+                    <p class="vote_artist">{{ object.vote_set.all.4.track.artists.all | artist_list }}</p>
+                    {% if object.vote_set.all.4.track.preview_url %}
+                        <audio class="vote_track_preview" controls>
+                            <source src="{{ object.vote_set.all.4.track.preview_url }}">
+                        </audio>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

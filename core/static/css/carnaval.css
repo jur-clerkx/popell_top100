@@ -1,32 +1,9 @@
-body {
-    background-image: url("/static/img/carnaval-background.jpg");
+body.pub-vibe-bg {
+    background-image:
+        linear-gradient(rgba(10, 10, 12, 0.78), rgba(10, 10, 12, 0.88)),
+        url("/static/img/carnaval-background.jpg");
 }
 
-.content{
-    border: 3px solid rgba(251,154,9,0.8);
-    background-color: rgba(0, 0, 0, .7);
-}
-
-@media (max-width: 576px) {
-    .content {
-        border-radius: 0;
-        border-left: unset;
-        border-right: unset;
-        border-top: 3px solid rgba(251,154,9,0.8);
-        border-bottom: 3px solid rgba(251,154,9,0.8);
-        padding: 3px;
-    }
-}
-
-.btn-popell {
-    --bs-btn-color: white;
-    --bs-btn-bg: rgba(251,154,9, .8);
-    --bs-btn-border-color: #009f35;
-    --bs-btn-hover-color: white;
-    --bs-btn-hover-bg: rgba(251,154,9, 1);
-    --bs-btn-hover-border-color: #009f35;
-    --bs-btn-active-color: white;
-    --bs-btn-active-bg: rgba(251,154,9, 1);
-    --bs-btn-active-border-color: #009f35;
-    --bs-btn-border-width: 3px;
+.content.stage-card {
+    border: 3px solid rgba(251, 154, 9, 0.85);
 }

@@ -1,12 +1,25 @@
 {% extends 'base.html' %}
 {% load crispy_forms_filters %}
-{% block title %}{{ hitlist.name }}{% endblock %}
+{% block title %}{{ hitlist.name }} - Eigen nummer toevoegen{% endblock %}
 {% block content %}
-    <h1>Eigen nummer toevoegen</h1>
-    <form method="post">
+    <div class="border-b border-stone-800/80 pb-5 mb-6">
+        <div class="flex items-center gap-3">
+            <h1 class="font-rock text-2xl sm:text-4xl text-stone-100 font-bold uppercase tracking-wide m-0">Eigen nummer toevoegen</h1>
+            <span aria-hidden="true" class="text-amber-500 text-2xl">♫</span>
+        </div>
+        <p class="text-stone-400 text-sm mt-2 mb-0">
+            Staat jouw favoriete plaat niet op Spotify? Voeg 'm hier handmatig toe aan het PopEll archief zodat je erop kunt stemmen.
+        </p>
+    </div>
+
+    <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form | crispy }}
-        <a href="javascript:close();" class="btn btn-popell">Annuleren</a>
-        <button type="submit" class="btn btn-popell">Aanmaken</button>
+        <div class="pt-4 mt-6 border-t border-stone-800/80 flex flex-wrap items-center gap-3">
+            <button type="submit" class="btn-tactile-amber px-7 py-3 text-base">
+                <span>Aanmaken</span>
+            </button>
+            <a href="javascript:close();" class="btn-tactile-dark px-6 py-3 text-base">Annuleren</a>
+        </div>
     </form>
 {% endblock %}

@@ -14,11 +14,11 @@ urlpatterns = [
         views.CurrentHitListView.as_view(),
         name="current-hitlist",
     ),
-    path("api/search/", views.SpotipySearchView.as_view(), name="search"),
+    path("search/", views.SpotipySearchView.as_view(), name="search"),
     path(
-        "api/get/<str:spotifyuri>",
+        "get/<str:spotifyuri>",
         views.SpotipyGetView.as_view(),
         name="get",
     ),
-    path("api/stats/", views.TrackStatsGetView.as_view(), name="track-stats"),
+    path("stats/", views.TrackStatsGetView.as_view(), name="track-stats"),
 ]
