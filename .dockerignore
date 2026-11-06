@@ -1,0 +1,50 @@
+# Git & CI
+.git
+.gitignore
+.github
+.devcontainer
+.pre-commit-config.yaml
+sonar-project.properties
+
+# IDE & Editors
+.idea
+.vscode
+*.swp
+*.swo
+
+# Secrets & local environment
+.env
+.env.*
+.venv
+venv/
+env/
+ENV/
+
+# Local databases & caches
+db.sqlite3
+db.sqlite3-journal
+.cache
+.mypy_cache/
+.pytest_cache/
+.tox/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Python bytecode & build artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+staticfiles/
+media/
+*.log
+
+# Documentation
+README.md
+LICENSE.md
+

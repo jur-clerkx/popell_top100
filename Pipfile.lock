@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "fac3429d1a5171b706ffa377567df087139e93c770b849fc37782712209c8a89"
+            "sha256": "456b9a36232588f3c3efbe056bc9ddd2ee98ba93a131c3310a1c5e0be2cd4451"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -306,6 +306,15 @@
             "markers": "python_version >= '3.8'",
             "version": "==2.0.0"
         },
+        "gunicorn": {
+            "hashes": [
+                "sha256:62b864895d9ebff0b2f9867ba04fe811c93121596540830c9c916d0769668447",
+                "sha256:bd249d0b3f7972f7432f0a6b6ff3b3ee2d129f70cd1ff6c09a9dd9e29a2b88e3"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==26.2.0"
+        },
         "idna": {
             "hashes": [
                 "sha256:a7db850025b95ded1eae8a46181a1a6c56c92c96f0e2b005d9ff8dc0210cab44",
@@ -340,6 +349,7 @@
                 "sha256:d36784fc2dae69523ba4b79c7d1d1b4d6e83e87836874f111262f4db940b16a6"
             ],
             "index": "pypi",
+            "markers": "python_version >= '3.10'",
             "version": "==2.9.13"
         },
         "pyexcel": {
@@ -557,6 +567,15 @@
             ],
             "markers": "python_version >= '3.10'",
             "version": "==2.8.0"
+        },
+        "whitenoise": {
+            "hashes": [
+                "sha256:f723ebb76a112e98816ff80fcea0a6c9b8ecde835f8ddda25df7a30a3c2db6ad",
+                "sha256:fc5e8c572e33ebf24795b47b6a7da8da3c00cff2349f5b04c02f28d0cc5a3cc2"
+            ],
+            "index": "pypi",
+            "markers": "python_version >= '3.10'",
+            "version": "==6.12.0"
         }
     },
     "develop": {
@@ -1099,11 +1118,11 @@
         },
         "mypy-extensions": {
             "hashes": [
-                "sha256:1be4cccdb0f2482337c4743e60421de3a356cd97508abadd57d47403e94f5505",
-                "sha256:52e68efc3284861e772bbcd66823fde5ae21fd2fdb51c62a211403730b916558"
+                "sha256:993e7a20aa5671eb41a7132cf555af30062da99729601601b9a8382b11cae768",
+                "sha256:c6e275a07f1c2fc096b62940452d0eaa3f3af7de45d704787866240a7c6d5a51"
             ],
-            "markers": "python_version >= '3.8'",
-            "version": "==1.1.0"
+            "markers": "python_version >= '3.10'",
+            "version": "==1.2.0"
         },
         "nodeenv": {
             "hashes": [
