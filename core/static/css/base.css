@@ -67,6 +67,20 @@ body.pub-vibe-bg {
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9));
 }
 
+.welcome-description {
+    width: 100%;
+    max-width: 36rem; /* 576px (max-w-xl) */
+    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
+.welcome-description p {
+    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+}
+
 .vote-header h2 {
     font-family: 'Oswald', 'Anton', sans-serif;
     letter-spacing: 0.03em;
